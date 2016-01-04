@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  name: MyString
+  content: MyText
+  participant_id: MyText
+  tag: MyText
+  place: MyString
+  start_date: 2016-01-04 04:50:54
+  end_date: 2016-01-04 04:50:54
+  recommend: 1
+  want_join: 1
+  admin_id: 1
+
+two:
+  user_id: 1
+  name: MyString
+  content: MyText
+  participant_id: MyText
+  tag: MyText
+  place: MyString
+  start_date: 2016-01-04 04:50:54
+  end_date: 2016-01-04 04:50:54
+  recommend: 1
+  want_join: 1
+  admin_id: 1
