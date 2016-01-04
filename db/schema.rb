@@ -11,7 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20151231013907) do
+=======
+ActiveRecord::Schema.define(version: 20160104125054) do
+
+  create_table "activities", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.text     "content"
+    t.text     "participant_id"
+    t.text     "tag"
+    t.string   "place"
+    t.time     "start_date"
+    t.time     "end_date"
+    t.integer  "recommend"
+    t.integer  "want_join"
+    t.integer  "admin_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+>>>>>>> origin/master
 
   create_table "admins", force: :cascade do |t|
     t.string   "name"
