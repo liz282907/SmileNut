@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   get 'account/register'
 
   get 'activites/all-events'
-
+  
+  get 'launch' => 'activites#launch'
+  
   get 'nuts/index'
 
   get 'hole/all-holes'
