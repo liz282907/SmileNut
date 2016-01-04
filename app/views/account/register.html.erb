@@ -1,2 +1,93 @@
-<h1>Account#register</h1>
-<p>Find me in app/views/account/register.html.erb</p>
+<!DOCTYPE html>
+<html>
+<head>
+<title>注册页面</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<link rel="shortcut icon" href="/assets/account/favicon.ico" />
+<link href="/assets/account/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/assets/account/jquery.js"></script>
+<script type="text/javascript" src="/assets/account/jquery.i18n.properties-1.0.9.js" ></script>
+<script type="text/javascript" src="/assets/account/jquery-ui-1.10.3.custom.js"></script>
+<script type="text/javascript" src="/assets/account/jquery.validate.js"></script>
+<script type="text/javascript" src="/assets/account/md5.js"></script>
+<!--[if IE]>
+  <script src="/assets/account/html5.js"></script>
+<![endif]-->
+<!--[if lte IE 6]>
+	<script src="/assets/account/DD_belatedPNG_0.0.8a-min.js" language="javascript"></script>
+	<script>
+	  DD_belatedPNG.fix('div,li,a,h3,span,img,.png_bg,ul,input,dd,dt');
+	</script>
+<![endif]-->
+</head>
+<body class="loginbody">
+<div class="dataEye">
+	<div class="loginbox registbox">
+		<div class="logo-a">
+			
+            <%= link_to image_tag("nuts_login.png"), nuts_index_path
+            %>
+		</div>
+		<div class="login-content reg-content">
+			<div class="loginbox-title">
+				<h3>注册</h3>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <label style="color:red"> <%= @error_message_register %><label>
+			</div>
+            <%= form_for :accounts, url: {controller: "account", action: "register"}, html: {id: "signupForm"} do |f| %>
+                <div class="login-error"></div>
+                <div class="row">
+                    <label class="field" for="contact">昵称</label>
+                    <%= f.text_field :contact, class: "nput-text-user noPic input-click", id: "contact"%>
+                </div>
+                <div class="row">
+                    <label class="field" for="email">注册邮箱</label>
+                    <%= f.text_field :email, class: "input-text-user noPic input-click", id: "email"%>
+                </div>
+                <div class="row">
+                    <label class="field" for="password">密码</label>
+                    <%= f.password_field :password, class: "input-text-password noPic input-click", id: "password"%>
+                </div>
+                <div class="row">
+                    <label class="field" for="passwordAgain">确认密码</label>
+                    <%= f.password_field :passwordAgain, class: "input-text-password noPic input-click", id: "passwordAgain"%>
+                </div>
+
+                <div class="row tips">
+                    <input type="checkbox" id="checkBox">
+                    <label>
+                    我已阅读并同意
+                    <a href="">使用条款</a>
+                    </label>
+                </div>
+                <div class="row btnArea">
+                    <%= submit_tag "注册", class:"login-btn", id:"submit" %>
+                </div>
+            <% end %>
+		</div>
+		<div class="go-regist">
+			已有帐号,请
+            <%= 
+                link_to "登录", account_login_path
+            %>
+		</div>
+	</div>
+	
+<div id="footer">
+	<div class="dblock">
+		<div class="inline-block copyright">
+			<p> Copyright © 2015 dyc@ruby.com</p>
+		</div>
+	</div>
+</div>
+</div>
+<div class="loading">
+	<div class="mask">
+		<div class="loading-img">
+		<img src="/assets/account/loading.gif" width="31" height="31">
+		</div>
+	</div>
+</div>
+</body>
+</html>

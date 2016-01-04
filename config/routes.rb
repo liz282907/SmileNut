@@ -8,6 +8,10 @@ Rails.application.routes.draw do
   get 'nuts/index'
 
   get 'hole/all-holes'
+    
+  post 'account/login'
+
+  post 'account/register'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
