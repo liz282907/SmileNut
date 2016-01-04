@@ -5,3 +5,11 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+
+
+#------------------------下面是经测试可以成功执行-----------------------
+#encoding: utf-8
+
+#t=Time.now
+#Activity.create({:name=>"野长城",:created_at=>t,:updated_at=>t,:content=>"野长城风景很漂亮，值得一爬"})
