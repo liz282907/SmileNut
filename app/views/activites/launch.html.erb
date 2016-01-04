@@ -1,7 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset = "utf-8" http-equiv="Content-Type" content="text/html">
+
+</head>
+<body>
 <div class = "container">
     <div class = "row">
         <div class = "col-md-6 col-md-offset-3">
-          <%= form_for(@activity)  do |f| %>
+           <%= form_for :accounts, url: {controller: "account", action: "register"}, html: {id: "signupForm"} do |f| %>
               <%= f.label :name,"活动名称"%>
               <%= f.text_field :name %>
               
@@ -42,3 +49,6 @@
         </div>
     </div>
 </div>
+
+
+</body>
