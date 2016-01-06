@@ -12,9 +12,10 @@ class ActivitesController < ApplicationController
 		puts "************************************************"
 
 		@activities = Activity.all()
-		#@activities.each do |activity|
-		#	puts activity.start_date.strftime("%Y-%m-%d %H:%M")
-		#end
+		@activities.each do |activity|
+			puts activity.start_date.strftime("%Y-%m-%d %H:%M")
+			puts activity
+		end
 
 		#@activities = Activity.all()
 		@candidate = []

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160104125054) do
+ActiveRecord::Schema.define(version: 20160106133224) do
 
   create_table "activities", force: :cascade do |t|
     t.integer  "user_id"
@@ -20,8 +20,8 @@ ActiveRecord::Schema.define(version: 20160104125054) do
     t.text     "participant_id"
     t.text     "tag"
     t.string   "place"
-    t.time     "start_date"
-    t.time     "end_date"
+    t.datetime "start_date"
+    t.datetime "end_date"
     t.integer  "recommend"
     t.integer  "want_join"
     t.integer  "admin_id"
