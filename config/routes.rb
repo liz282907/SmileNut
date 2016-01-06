@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   get 'activites/all-events'
   
-  get 'launch' => 'activites#launch'
+  get 'launch' => 'activites#new'
   
   get 'nuts/index'
 
