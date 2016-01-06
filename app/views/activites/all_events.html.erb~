@@ -9,8 +9,14 @@
 		<style type="text/css">
 			#label_content{
 				position: relative;
-				left: 100px;
+				left: 60px;
 				top: 0px;
+			}
+			#aside{
+				position: absolute;
+				top: 150px;
+				left: 750px;
+				width: 250px
 			}
 		</style>
 
@@ -19,8 +25,8 @@
 		<!--%= render "./header" %-->
 		<h1>果壳活动</h1>
 		<p>Find me in app/views/activites/all-events.html.erb</p>
-		<div id="parent" style="position:static;">
-			<div style="position: relative; top: 5px;width:100px">标签：</div>
+		<div id="activity_info" style="position:static; width: 700px">
+			<div style="position: relative; left: 10px; top: 30px;width:50px">标签：</div>
 			<div id="label_content">
 			
 				<ul class="nav nav-pills">
@@ -31,13 +37,9 @@
 		
 			</div>
 			<br>
-			<br>
-
-
 
 			<ul class="list-group">
-				<%@real_activities = >
-				<%@real_activities.each do |activity|%>
+				<%@activities.each do |activity|%>
 
 				<li class="list-group-item">
 					<div class="info">
@@ -65,7 +67,7 @@
 						</p>
 					</div>
 				</li>
-				<br><br>
+				<br>
 
 				<%end%>
 			</ul>
@@ -73,9 +75,9 @@
 		
 
 
-		<div>
-		
-
+		<div id="aside">
+			这是边栏
+			这是边栏这是边栏这是边栏这是边栏
 		</div>
 
 	</body>
