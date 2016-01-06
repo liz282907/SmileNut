@@ -5,8 +5,9 @@
 		<title>果壳活动</title>
 	</head>
 	<body>
-		<h1>果壳活动</h1>
+		<h1>Activites#all-events</h1>
 		<p>Find me in app/views/activites/all-events.html.erb</p>
+		activitis.............
 		<table width=1000>  
 				<tr align=center>
 					<th>活动ID</th>

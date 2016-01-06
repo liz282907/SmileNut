@@ -12,9 +12,7 @@ class ActivitesController < ApplicationController
 		puts "************************************************"
 
 		@activities = Activity.all()
-		@activities.each do |activity|
-			puts activity.start_date
-		end
+		
 		'''
 		@all_ratings=Movie.ratingcollection
 		puts "************************************************"
