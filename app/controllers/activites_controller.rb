@@ -12,9 +12,30 @@ class ActivitesController < ApplicationController
 		puts "************************************************"
 
 		@activities = Activity.all()
-		@activities.each do |activity|
-			puts activity.start_date
+		#@activities.each do |activity|
+		#	puts activity.start_date.strftime("%Y-%m-%d %H:%M")
+		#end
+
+		#@activities = Activity.all()
+		@candidate = []
+		if(params[:tag])
+			@activities.each do |activity|
+				@get_tag = params[:tag]
+				puts @get_tag
+				@tags = activity.tag.split(",")
+				@tags.each do |tag|
+					if(tag == @get_tag)
+						@candidate.push(activity.id)
+					end
+				end
+			end
+			puts @candidate
+			@activities = Activity.find @candidate
+
 		end
+		
+
+
 		'''
 		@all_ratings=Movie.ratingcollection
 		puts "************************************************"

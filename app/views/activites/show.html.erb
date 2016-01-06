@@ -3,32 +3,36 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>果壳活动</title>
+		<link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet"></link>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 	</head>
 	<body>
+		<%= render "./header" %>
 		<h2><%=@activity.name%></h2>
 		<p>Find me in app/views/activites/show.html.erb</p>
 		
-		<ul>details
-			<li>活动名
+		<ul class="list-group">details
+			<li class="list-group-item">活动名
 				<%=@activity.name%>
 			</li>
-			<li>活动内容
+			<li class="list-group-item">活动内容
 				<%=@activity.content%>
 			</li>
-			<li>活动地点
+			<li class="list-group-item">活动地点
 				<%=@activity.place%>
 			</li>
-			<li>开始时间
+			<li class="list-group-item">开始时间
 				<%=@activity.start_date%>
 			</li>
-			<li>结束时间
+			<li class="list-group-item">结束时间
 				<%=@activity.end_date%>
 			</li>
-			<li>发起人
+			<li class="list-group-item">发起人
 				<%=@activity.user_id%>
 			</li>
-			<li> <%= button_to "#{@activity.recommend}", {:controller => "activites" , :action => "add" , acid: @activity.id , type: "recommend"} , {method: :post} %></li>
-			<li> <%=button_to "#{@activity.want_join}", {:controller => "activites" , :action => "add" , acid: @activity.id , type: "want_join"} , {method: :post}%></li>
+			<li class="list-group-item"> <%= button_to "#{@activity.recommend}", {:controller => "activites" , :action => "add" , acid: @activity.id , type: "recommend"} , {method: :post} %></li>
+			<li class="list-group-item"> <%=button_to "#{@activity.want_join}", {:controller => "activites" , :action => "add" , acid: @activity.id , type: "want_join"} , {method: :post}%></li>
 
 		</ul>
 

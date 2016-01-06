@@ -3,12 +3,16 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>果壳活动</title>
+		<link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet"></link>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 	</head>
 	<body>
-		<h2><%@activity.name%></h2>
+		<%= render "./header" %>
+		<h2><%=@activity.name%></h2>
 		<p>Find me in app/views/activites/show.html.erb</p>
 		
-		<ul>details
+		<ul class="list-group">details
 			<li>活动名
 				<%=@activity.name%>
 			</li>

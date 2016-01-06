@@ -3,37 +3,80 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>果壳活动</title>
+		<link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet"></link>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+		<style type="text/css">
+			#label_content{
+				position: relative;
+				left: 100px;
+				top: 0px;
+			}
+		</style>
+
 	</head>
 	<body>
+		<!--%= render "./header" %-->
 		<h1>果壳活动</h1>
 		<p>Find me in app/views/activites/all-events.html.erb</p>
-		<table width=1000>  
-				<tr align=center>
-					<th>活动ID</th>
-					<th>活动名</th>
-					<th>活动地点</th>
-					<th>开始时间</th>
-					<th>结束时间</th>
-					<th>发起人</th>
-					<th>推荐数</th>
-					<th>想参与</th>
-				</tr>
-			<tbody>
-				<%@activities.each do |activity|%>
-				<tr align=center> 
-					<td> <%= activity.id%></td>
-					<td> <%= link_to "#{activity.name}" , "#{activity.id}"%></td>
-					<td> <%=activity.place%></td>
-					<td> <%=activity.start_date%></td>
-					<td> <%=activity.end_date%></td>
-					<td> <%=activity.user_id%></td>
-					<td> <%= button_to "#{activity.recommend}", {:controller => "activites" , :action => "add" , acid: activity.id , type: "recommend"} , {method: :post} %></td>
-					<td> <%=button_to "#{activity.want_join}", {:controller => "activites" , :action => "add" , acid: activity.id , type: "want_join"} , {method: :post}%></td>
-				<%end%>
-				</tr>
-			</tbody>
+		<div id="parent" style="position:static;">
+			<div style="position: relative; top: 5px;width:100px">标签：</div>
+			<div id="label_content">
 			
-		</table>
+				<ul class="nav nav-pills">
+					<li> <%= link_to "全部" , {:controller => "activites" , :action => "all_events" } %> </li>	
+					<li> <%= link_to "旅行" , {:controller => "activites" , :action => "all_events" , tag: "旅行"} %> </li>
+					<li> <%= link_to "讲座" , {:controller => "activites" , :action => "all_events" , tag: "讲座"} %> </li>
+				</ul>
+		
+			</div>
+			<br>
+			<br>
+
+
+
+			<ul class="list-group">
+				<%@activities.each do |activity|%>
+
+				<li class="list-group-item">
+					<div class="info">
+						<div font-size=10px> <%= activity.id%> &nbsp&nbsp <%= link_to "#{activity.name}" , "#{activity.id}"%> </div>
+						<ul class="list-group-item">
+		  					<li>
+		  						<span class="hidden-xs">地点：<%=activity.place%></span>
+		  					</li>
+							<li>
+		  						<span class="hidden-xs">开始时间：<%=activity.start_date%></span>
+		  					</li>
+							<li>
+		  						<span class="hidden-xs">结束时间：<%=activity.end_date%></span>
+		  					</li>
+							<li>
+		  						<span class="hidden-xs">发起人：<%=activity.user_id%></span>
+		  					</li>
+						</ul>
+						<p class="counts">
+		    				<div><%= button_to "推荐数 #{activity.recommend}", {:controller => "activites" , :action => "add" , acid: activity.id , type: "recommend"} , {method: :post} %>
+						</div>
+					
+						<div><%=button_to "想参加数 #{activity.want_join}", {:controller => "activites" , :action => "add" , acid: activity.id , type: "want_join"} , {method: :post}%>
+						</div>
+						</p>
+					</div>
+				</li>
+				<br><br>
+
+				<%end%>
+			</ul>
+		</div>
+		
+
+
+		<div>
+		
+
+		</div>
+
 	</body>
 </html>
 
