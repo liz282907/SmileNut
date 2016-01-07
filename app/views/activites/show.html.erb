@@ -20,7 +20,12 @@
 				<%=@activity.content%>
 			</li>
 			<li class="list-group-item">活动地点
-				<%=@activity.place%>
+				<%@address = ""%>
+  				<%if(@activity.province!= "北京市" or "上海市" or "重庆市" or "天津市")%>
+  					<%@address = @activity.province%>
+  				<%end%>
+  				<%@address = @address + @activity.city + @activity.district + @activity.detail_addr%>
+  				<%=@address%>
 			</li>
 			<li class="list-group-item">开始时间
 				<%=@activity.start_date%>

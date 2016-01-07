@@ -46,7 +46,12 @@
 						<div font-size=10px> <%= activity.id%> &nbsp&nbsp <%= link_to "#{activity.name}" , "#{activity.id}"%> </div>
 						<ul class="list-group-item">
 		  					<li>
-		  						<span class="hidden-xs">地点：<%=activity.place%></span>
+		  						<%@address = ""%>
+		  						<%if(activity.province != "北京市" or "上海市" or "重庆市" or "天津市")%>
+		  							<%@address = activity.province%>
+		  						<%end%>
+		  						<%@address = @address + activity.city + activity.district + activity.detail_addr%>
+		  						<span class="hidden-xs">地点：<%=@address%></span>
 		  					</li>
 							<li>
 		  						<span class="hidden-xs">开始时间：<%=activity.start_date%></span>
