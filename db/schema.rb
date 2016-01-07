@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20160107055103) do
+=======
+ActiveRecord::Schema.define(version: 20160107000539) do
+>>>>>>> merge-activity
 
   create_table "activities", force: :cascade do |t|
     t.integer  "user_id"
@@ -19,7 +23,11 @@ ActiveRecord::Schema.define(version: 20160107055103) do
     t.text     "content"
     t.text     "participant_id"
     t.text     "tag"
+<<<<<<< HEAD
     t.string   "place"
+=======
+    t.string   "city"
+>>>>>>> merge-activity
     t.datetime "start_date"
     t.datetime "end_date"
     t.integer  "recommend"
@@ -27,8 +35,14 @@ ActiveRecord::Schema.define(version: 20160107055103) do
     t.integer  "admin_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+<<<<<<< HEAD
     t.time     "start_time"
     t.time     "end_time"
+=======
+    t.string   "province"
+    t.string   "district"
+    t.string   "detail_addr"
+>>>>>>> merge-activity
   end
 
   create_table "admins", force: :cascade do |t|

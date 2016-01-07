@@ -1,5 +1,95 @@
-<h1>Activites#all-events</h1>
-<p>Find me in app/views/activites/all-events.html.erb</p>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>果壳活动</title>
+		<link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet"></link>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+		<style type="text/css">
+			#label_content{
+				position: relative;
+				left: 60px;
+				top: 0px;
+			}
+			#aside{
+				position: absolute;
+				top: 350px;
+				left: 750px;
+				width: 250px
+			}
+			body
+			{
+				font-family : 微软雅黑;
+			}
+		</style>
 
-activitis........
-.....
+	</head>
+	<body>
+		<%= render "./header" %>
+		<h2>果壳活动</h2>
+		<p>Find me in app/views/activites/all-events.html.erb</p>
+		<div id="activity_info" style="position:static; width: 700px">
+			<div style="position: relative; left: 10px; top: 30px;width:50px">标签：</div>
+			<div id="label_content">
+			
+				<ul class="nav nav-pills">
+					<li> <%= link_to "全部" , {:controller => "activites" , :action => "all_events" } %> </li>	
+					<li> <%= link_to "旅行" , {:controller => "activites" , :action => "all_events" , tag: "旅行"} %> </li>
+					<li> <%= link_to "讲座" , {:controller => "activites" , :action => "all_events" , tag: "讲座"} %> </li>
+				</ul>
+		
+			</div>
+			<br>
+
+			<ul class="list-group">
+				<%@activities.each do |activity|%>
+
+				<li class="list-group-item">
+					<div class="info">
+						<div font-size=10px> <%= activity.id%> &nbsp&nbsp <%= link_to "#{activity.name}" , "#{activity.id}"%> </div>
+						<ul class="list-group-item">
+		  					<li>
+		  						<%@address = ""%>
+		  						<%if(activity.province != "北京市" or "上海市" or "重庆市" or "天津市")%>
+		  							<%@address = activity.province%>
+		  						<%end%>
+		  						<%@address = @address + activity.city + activity.district + activity.detail_addr%>
+		  						<span class="hidden-xs">地点：<%=@address%></span>
+		  					</li>
+							<li>
+		  						<span class="hidden-xs">开始时间：<%=activity.start_date%></span>
+		  					</li>
+							<li>
+		  						<span class="hidden-xs">结束时间：<%=activity.end_date%></span>
+		  					</li>
+							<li>
+		  						<span class="hidden-xs">发起人：<%=activity.user_id%></span>
+		  					</li>
+						</ul>
+						<p class="counts">
+		    				<div><%= button_to "推荐数 #{activity.recommend}", {:controller => "activites" , :action => "add" , acid: activity.id , type: "recommend"} , {method: :post} %>
+						</div>
+					
+						<div><%=button_to "想参加数 #{activity.want_join}", {:controller => "activites" , :action => "add" , acid: activity.id , type: "want_join"} , {method: :post}%>
+						</div>
+						</p>
+					</div>
+				</li>
+				<br>
+
+				<%end%>
+			</ul>
+		</div>
+		
+
+
+		<div id="aside">
+			这是边栏
+			这是边栏这是边栏这是边栏这是边栏
+		</div>
+
+	</body>
+</html>
+
+

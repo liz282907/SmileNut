@@ -21,10 +21,11 @@ class AccountController < ApplicationController
                   end
               end
               ##user
+
               find_users = User.where(:name => @user_name)
               if find_users
                   find_users.each do |find_user|
-                      if find_user.password == @user_pass
+                      if find_user.Password == @user_pass
                           session[:user_name] = @user_name
                           session[:pass_word] = @user_pass
                           redirect_to nuts_path
@@ -44,6 +45,13 @@ class AccountController < ApplicationController
       end
           
   end
+
+  def logout
+    session[:user_name] = nil
+    session[:pass_word] = nil
+    redirect_to all_events_path
+  end
+
 
   def register
       @register_account = params[:accounts]

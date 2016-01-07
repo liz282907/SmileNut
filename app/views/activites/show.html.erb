@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>果壳活动</title>
+		<link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet"></link>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+		<style type="text/css">
+			body
+			{
+				font-family : 微软雅黑;
+			}
+		</style>
+	</head>
+	<body>
+		<%= render "./header" %>
+		<h2><%=@activity.name%></h2>
+		<p>Find me in app/views/activites/show.html.erb</p>
+		
+		<ul class="list-group">details
+			<li class="list-group-item">活动名
+				<%=@activity.name%>
+			</li>
+			<li class="list-group-item">活动内容
+				<%=@activity.content%>
+			</li>
+			<li class="list-group-item">活动地点
+				<%@address = ""%>
+  				<%if(@activity.province!= "北京市" or "上海市" or "重庆市" or "天津市")%>
+  					<%@address = @activity.province%>
+  				<%end%>
+  				<%@address = @address + @activity.city + @activity.district + @activity.detail_addr%>
+  				<%=@address%>
+			</li>
+			<li class="list-group-item">开始时间
+				<%=@activity.start_date%>
+			</li>
+			<li class="list-group-item">结束时间
+				<%=@activity.end_date%>
+			</li>
+			<li class="list-group-item">发起人
+				<%=@activity.user_id%>
+			</li>
+			<li class="list-group-item"> <%= button_to "#{@activity.recommend}", {:controller => "activites" , :action => "add" , acid: @activity.id , type: "recommend"} , {method: :post} %></li>
+			<li class="list-group-item"> <%=button_to "#{@activity.want_join}", {:controller => "activites" , :action => "add" , acid: @activity.id , type: "want_join"} , {method: :post}%></li>
+
+		</ul>
+
+	</body>
+</html>
+<% if @activity_owner_id == @activity.user_id %>
+	<%= button_to "Edit", {:controller => "activites", :action => "all_events", :edit => 1} %>
+	<%= button_to "delete", {:controller => "activites", :action => "delete", :id => @activity.id}, :method => :delete, :confirm => 'Are you sure?' %>
+	<br>
+<% end %>
+
+<%= link_to "Back to activity list", {:controller => "activites", :action => "all_events"} %>
