@@ -69,7 +69,7 @@ class ActivitesController < ApplicationController
     activity_param[:user_id]=1
     activity_param[:content] = @launch_activity["content"]
     activity_param[:tag] = @launch_activity["tag"]
-    activity_param[:place] = @launch_activity["place"]
+    activity_param[:detail_addr] = @launch_activity["detail_addr"]
     
     
     activity_param[:start_date] = @launch_activity["start_date"]
