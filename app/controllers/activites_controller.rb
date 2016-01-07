@@ -3,13 +3,18 @@ class ActivitesController < ApplicationController
 	def show
 		id = params[:id]
 		@activity = Activity.find(id)
-		@activity_owner_id = User.find_by(name: session[:user_name]).id
+		if (session[:user_name])
+			@activity_owner_id = User.find_by(Name: session[:user_name]).id
+			puts "************************************************"
+			puts @ctivity_owner_id 
+		end
+
 	end
 
 
 
 	def all_events
-		puts "************************************************"
+		
 
 		@activities = Activity.all()
 		@activities.each do |activity|
