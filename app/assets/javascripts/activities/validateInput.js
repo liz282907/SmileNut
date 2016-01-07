@@ -10,7 +10,19 @@ $(function(){
     var eleArr = [$name,$place,$tag,$content];
     var error = "<span id='inputSuccess2Status' class='sr-only'>(success)</span>";
     
-     resetClass($name);
+    resetClass($name);
+    
+    $("#starttime").datetimepicker({
+         format: 'yyyy-mm-dd hh:ii',
+         language: 'zh-CN',
+         startDate: '2016-01-07'
+     });
+     
+    $("#endtime").datetimepicker({
+         format: 'yyyy-mm-dd hh:ii',
+         language: 'zh-CN',
+         startDate: '2016-01-07'
+     });
     
     for(var ele in eleArr){
         console.log(ele+"----"+eleArr[ele]);
@@ -31,6 +43,9 @@ $(function(){
         }
             
      })}
+     
+     
+     
      /*
     $name.on("blur",function(event){
         if($name.val()==""||$name.val()=="不超过10个字")

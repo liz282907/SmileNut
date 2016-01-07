@@ -3,3 +3,12 @@
 
 body{background-color:#f8f8f8;}
 .main-pad{background-color:#fff;}
+
+#start lable,.form-group{
+    width:100%;
+}
+#start .from-group{
+    display:flex;
+}
+#start .timepicker{flex:1}
+#start .datepicker{flex:1}
