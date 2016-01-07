@@ -47,23 +47,17 @@
 		</font1>
 
 		<right>
-			<%= link_to "登录", account_login_path %> &nbsp;&nbsp;
-			<%= link_to "注册", account_register_path %>
+			<%if (session[:user_name])%>
+				Hello , <%=session[:user_name]%>&nbsp;&nbsp;
+				<%= link_to "退出登录", account_logout_path %>
+			<%else%>
+				<%= link_to "登录", account_login_path %> &nbsp;&nbsp;
+				<%= link_to "注册", account_register_path %>
+
+			<%end%>
 			&nbsp;&nbsp;&nbsp;&nbsp;
 		</right>
 	</div>
 	</body>
 </html>
 
-<<<<<<< HEAD
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<%= 
-                link_to "登录", account_login_path
-            %>
-
-    <%= 
-link_to "注册", account_register_path
-            %>
-</div>
-=======
->>>>>>> origin/master

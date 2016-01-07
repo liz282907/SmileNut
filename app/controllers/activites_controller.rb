@@ -3,10 +3,10 @@ class ActivitesController < ApplicationController
 	def show
 		id = params[:id]
 		@activity = Activity.find(id)
+		@activity_owner_id = User.find_by(name: session[:user_name]).id
 	end
 
 
-	
 
 	def all_events
 		puts "************************************************"
@@ -35,40 +35,25 @@ class ActivitesController < ApplicationController
 
 		end
 		
-
-
-		'''
-		@all_ratings=Movie.ratingcollection
-		puts "************************************************"
-		puts @all_ratings
-		if params[:ratings]
-			@ratings=params[:ratings].keys
-		else
-			@ratings=@all_ratings
+		if (params[:edit] == 1)
+			session[:edit] = true
 		end
-		@movies=Movie.where(rating:@ratings)
-		@sorted=0
-		@select="wait"
-		if params[:select]
-			@select=params[:select]
-			@movies=@movies.sort_by{|movie| movie[@select]}
-			if params[:sort].to_i==1
-				@movies=@movies.reverse
-				@sorted=0
-			else
-				@sorted=1
-			end
-		end
-		'''
+		
 	end
+
+	
+	def delete
+		id = params[:id]
+		@activity = Activity.find(id)
+		@activity.destroy
+		redirect_to activites_all_events_path
+	end	
+	
 
 	#------其他def-------
 	def add
 	
 		@activity = Activity.find params[:acid]
-		puts @activity.start_date
-		puts "$$$$$$$$$$$$"
-		puts "^^^^^^^^^^^^"
 		if (params[:type] == "recommend")
 			@activity.update_attributes(:recommend => (@activity.recommend + 1))
 		else

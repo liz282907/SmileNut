@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   get 'account/register' 
 
   get 'activites/all-events'
+  
+  post 'activites/all-events'
 
   get 'nuts/index'
 
@@ -14,6 +16,10 @@ Rails.application.routes.draw do
   post 'account/register'
   
   post 'activites/add'
+  
+  get 'account/logout'
+  
+  delete 'activites/delete'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
