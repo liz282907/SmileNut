@@ -49,7 +49,7 @@ class AccountController < ApplicationController
   def logout
     session[:user_name] = nil
     session[:pass_word] = nil
-    redirect_to all_events_path
+    redirect_to({:controller => "activites", :action => "all_events"})
   end
 
 
