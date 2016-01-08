@@ -45,6 +45,17 @@ class ActivitesController < ApplicationController
 		redirect_to activites_all_events_path
 	end	
 	
+	
+	def update
+		params.permit!
+		puts params[:activity]
+		id = params[:id].to_i
+		puts "----------id",id
+		update_activity = Activity.find(id)
+		update_activity.update_attributes(params[:activity])
+		redirect_to {controller:"activites",action:"show",id: id}
+		
+	end
 
 	#------其他def-------
 	def add
