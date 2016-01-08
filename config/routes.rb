@@ -5,7 +5,9 @@ Rails.application.routes.draw do
 
   get 'activites/all-events'
   
-  post 'activites/all-events'
+  get 'launch' => 'activites#new'
+  
+#  post 'activites/all-events'
 
   get 'nuts/index'
 
@@ -18,6 +20,8 @@ Rails.application.routes.draw do
   post 'activites/add'
   
   get 'account/logout'
+  
+  
   
   delete 'activites/delete'
 

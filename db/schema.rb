@@ -30,6 +30,8 @@ ActiveRecord::Schema.define(version: 20160107130748) do
     t.string   "province"
     t.string   "district"
     t.string   "detail_addr"
+    t.time     "start_time"
+    t.time     "end_time"
   end
 
   create_table "admins", force: :cascade do |t|
