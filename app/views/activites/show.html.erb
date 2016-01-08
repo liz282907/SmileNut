@@ -81,7 +81,7 @@
 </html>
 <% if @activity_owner_id == @activity.user_id %>
 	<%= button_to "Edit", {:controller => "activites", :action => "all_events", :edit => 1} %>
-	<%= button_to "delete", {:controller => "activites", :action => "delete", :id => @activity.id}, :method => :delete, :confirm => 'Are you sure?' %>
+	<%= button_to "delete", {:controller => "activites", :action => "delete", :id => @activity.id}, :method => :delete, data: { confirm: "Are you sure?"} %>
 	<br>
 <% end %>
 
