@@ -1,3 +1,5 @@
+
+require 'json'
 class ActivitesController < ApplicationController
 
 	def show
@@ -86,6 +88,20 @@ class ActivitesController < ApplicationController
 			puts params[:to_id]
 			puts params[:activity_id]
 			CommentActivity.create(:activity_id => params[:activity_id], :content => params[:comment][:comment_content], :from_id => from_id, :to_id => params[:to_id])
+			to_user = User.find(params[:to_id])
+			if (not to_user.unreaded)
+				tmp_hash = {}
+				tmp_hash[params[:activity_id]]=[].push(from_id)
+				json_str = JSON.dump(tmp_hash)
+				to_user.update_attributes(:unreaded => json_str)
+			else
+				extract_str = to_user.unreaded
+				tmp_hash = JSON.load(extract_str)
+				tmp_hash.has_key?(:activity_id) ? tmp_hash[:activity_id].push(from_id) : [].push(from_id)
+				json_str = JSON.dump(tmp_hash)
+				to_user.update_attributes(:unreaded => json_str)
+					
+			end
 			
 		end
 		redirect_to :back
