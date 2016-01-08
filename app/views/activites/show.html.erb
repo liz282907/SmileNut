@@ -17,35 +17,65 @@
 		<%= render "./header" %>
 		<h2><%=@activity.name%></h2>
 		<p>Find me in app/views/activites/show.html.erb</p>
+		<div>
+			<ul class="list-group">details
+				<li class="list-group-item">活动名
+					<%=@activity.name%>
+				</li>
+				<li class="list-group-item">活动内容
+					<%=@activity.content%>
+				</li>
+				<li class="list-group-item">活动地点
+					<%@address = ""%>
+	  				<%if(@activity.province!= "北京市" or "上海市" or "重庆市" or "天津市")%>
+	  					<%@address = @activity.province%>
+	  				<%end%>
+	  				<%@address = @address + @activity.city + @activity.district + @activity.detail_addr%>
+	  				<%=@address%>
+				</li>
+				<li class="list-group-item">开始时间
+					<%=@activity.start_date%>
+				</li>
+				<li class="list-group-item">结束时间
+					<%=@activity.end_date%>
+				</li>
+				<li class="list-group-item">发起人
+					<%=@activity.user_id%>
+				</li>
+				<li class="list-group-item"> <%= button_to "#{@activity.recommend}", {:controller => "activites" , :action => "add" , acid: @activity.id , type: "recommend"} , {method: :post} %></li>
+				<li class="list-group-item"> <%=button_to "#{@activity.want_join}", {:controller => "activites" , :action => "add" , acid: @activity.id , type: "want_join"} , {method: :post}%></li>
+	
+			</ul>
 		
-		<ul class="list-group">details
-			<li class="list-group-item">活动名
-				<%=@activity.name%>
-			</li>
-			<li class="list-group-item">活动内容
-				<%=@activity.content%>
-			</li>
-			<li class="list-group-item">活动地点
-				<%@address = ""%>
-  				<%if(@activity.province!= "北京市" or "上海市" or "重庆市" or "天津市")%>
-  					<%@address = @activity.province%>
-  				<%end%>
-  				<%@address = @address + @activity.city + @activity.district + @activity.detail_addr%>
-  				<%=@address%>
-			</li>
-			<li class="list-group-item">开始时间
-				<%=@activity.start_date%>
-			</li>
-			<li class="list-group-item">结束时间
-				<%=@activity.end_date%>
-			</li>
-			<li class="list-group-item">发起人
-				<%=@activity.user_id%>
-			</li>
-			<li class="list-group-item"> <%= button_to "#{@activity.recommend}", {:controller => "activites" , :action => "add" , acid: @activity.id , type: "recommend"} , {method: :post} %></li>
-			<li class="list-group-item"> <%=button_to "#{@activity.want_join}", {:controller => "activites" , :action => "add" , acid: @activity.id , type: "want_join"} , {method: :post}%></li>
-
-		</ul>
+		</div>
+			
+		<div>评论区
+		
+			<ul class="list-group-item">
+				<% count = 0%>
+		  		<% @activity_comments.each do |comment|%>
+		  			<% count = count + 1 %>
+					<li><%= count %>&nbsp&nbsp
+						<%= @from_to_array[count - 1][0] %> 回复 <%= @from_to_array[count - 1][1]%>
+						<br>
+						&nbsp&nbsp&nbsp&nbsp
+						<%= comment.content %>
+  					</li>
+	  			<% end %>
+			</ul>
+		
+		
+		
+		</div>
+		
+		<% if (session[:user_name]) %>
+			<div>添加评论
+				<%= form_for :comment, url: {controller: "activites", action: "add_comment", to_id: @activity.user_id, activity_id: @activity.id} do |f| %>
+					<%= f.text_area(:comment_content, placeholder:"评论内容")%>
+					<%= f.submit "发布评论" %>
+				<% end %> 
+			</div>
+		<% end %>
 
 	</body>
 </html>

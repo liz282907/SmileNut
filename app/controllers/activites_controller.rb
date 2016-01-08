@@ -5,9 +5,19 @@ class ActivitesController < ApplicationController
 		@activity = Activity.find(id)
 		if (session[:user_name])
 			@activity_owner_id = User.find_by(Name: session[:user_name]).id
-			puts "************************************************"
-			puts @ctivity_owner_id 
+		 
 		end
+		
+		@activity_comments = CommentActivity.where(activity_id: id)
+		@from_to_array = []
+		@activity_comments.each do|activity_comment|
+			tmp_array = []
+			tmp_array.push(User.find(activity_comment.from_id).Name)
+			tmp_array.push(User.find(activity_comment.to_id).Name)
+			@from_to_array.push(tmp_array)
+		end
+			
+
 
 	end
 
@@ -67,7 +77,19 @@ class ActivitesController < ApplicationController
 		
 		redirect_to :back
 	end
-
+	
+	
+	def add_comment
+		if (session[:user_name])
+			puts "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
+			from_id = User.find_by(Name: session[:user_name]).id
+			puts params[:to_id]
+			puts params[:activity_id]
+			CommentActivity.create(:activity_id => params[:activity_id], :content => params[:comment][:comment_content], :from_id => from_id, :to_id => params[:to_id])
+			
+		end
+		redirect_to :back
+	end
 
 
 
