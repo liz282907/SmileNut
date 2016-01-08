@@ -12,12 +12,25 @@ class ActivitesController < ApplicationController
 		
 		@activity_comments = CommentActivity.where(activity_id: id)
 		@from_to_array = []
+		@total = []
 		@activity_comments.each do|activity_comment|
+			tmp_dic = {}
+			tmp_dic["from_name"] = User.find(activity_comment.from_id).Name
+			tmp_dic["to_name"] = User.find(activity_comment.to_id).Name
+			tmp_dic["comment"] = activity_comment
+			@total.push(tmp_dic)
+	"""
 			tmp_array = []
 			tmp_array.push(User.find(activity_comment.from_id).Name)
 			tmp_array.push(User.find(activity_comment.to_id).Name)
+			tmp_array.push(activity_comment)
+			
+			activity_comment[:from_name] = User.find(activity_comment.from_id).Name
+			activity_comment[:to_name] = User.find(activity_comment.to_id).Name
 			@from_to_array.push(tmp_array)
+	"""
 		end
+		
 			
 
 
@@ -95,7 +108,15 @@ class ActivitesController < ApplicationController
 		redirect_to :back
 	end
 
-	
+	def add_in_comment
+		to = params[:comment_to_id]
+		content = params[:content]
+		from = params[:comment_from_id]
+		activity = params[:activity_id]
+		CommentActivity.create(:activity_id =>activity, :content => content, :from_id =>from, :to_id => to)
+		
+		
+	end
 	
 	def add_comment
 		if (session[:user_name])
@@ -106,7 +127,8 @@ class ActivitesController < ApplicationController
 			CommentActivity.create(:activity_id => params[:activity_id], :content => params[:comment][:comment_content], :from_id => from_id, :to_id => params[:to_id])			
 			to_user = User.find(params[:to_id])
 			params[:from_name] = session[:user_name]
-			params[:to_name] = to_user[:name]
+			params[:to_name] = to_user["Name"]
+			
 			puts "---------------------",params
 			if (not to_user.unreaded)
 				tmp_hash = {}
