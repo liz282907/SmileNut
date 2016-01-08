@@ -1,20 +1,20 @@
 <% @total.each do |comment_info|%>
     <div class="each_comment">
-        <p>
+        <span class="inline-text">
             <%if !comment_info["to_name"] %>
-                <%= comment_info["from_name"]:%>
+                <%= comment_info["from_name"]%>
                 <%= comment_info["comment"]["content"] %>
             <%else %>
                 <%= comment_info["from_name"]%>
                 <span>回复</span>
-                <%= comment_info["to_name"]: %>
+                <%= comment_info["to_name"] %>
                 <%= comment_info["comment"]["content"] %>
             <%end %>
-        </p>
+        </span>
         <a class="expand" href="#">回复</a>
         <div class="add">
             <input ></input>
-            <%= link_to "回复", {:controller=>"activites", :action=>"add_in_comment",:id=>comment_a:comment_info["comment"]["from_id"] },data:{test1: comment_info["comment"]["from_id"],cur_u:session[:user_name]},:class=>"comment"%>
+            <%= link_to "回复", {:controller=>"activites", :action=>"add_in_comment"},data:{test1: comment_info["comment"]["from_id"],cur_u:session[:user_name],ac_id:comment_info["comment"]["activity_id"]},:class=>"comment"%>
         </div>
     </div>
 <% end %>

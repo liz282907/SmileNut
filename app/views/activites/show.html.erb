@@ -6,11 +6,14 @@
 		<link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet"></link>
 		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 		<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-		<script src="assets/activites/addComment.js"></script>
 		<style type="text/css">
 			body
 			{
 				font-family : 微软雅黑;
+			}
+			.inline-text
+			{
+				color:grey;
 			}
 		</style>
 	</head>
@@ -49,40 +52,24 @@
 			</ul>
 		
 		</div>
-		<div id="comment_district">
-		  		<%= render partial: "comment_partial", :object => @total%>
-		</div>
-		
-		
-		<div>评论区
-		
-			<ul class="list-group-item">
-				<% count = 0%>
-		  		<% @activity_comments.each do |comment|%>
-		  			<% count = count + 1 %>
-					<li><%= count %>&nbsp&nbsp
-						
-						<%= @from_to_array[count - 1][0] %> 回复 <%= @from_to_array[count - 1][1]%>
-						<br>
-						&nbsp&nbsp&nbsp&nbsp
-						<%= comment.content %>
-  					</li>
-	  			<% end %>
-			</ul>
-		
-		
-		
-		</div>
 		
 		<% if (session[:user_name]) %>
 			<div>添加评论
-				<%= form_for :comment, url: {controller: "activites", action: "add_comment", to_id: @activity.user_id, activity_id: @activity.id} do |f| %>
+				<%= form_for :comment, url: {controller: "activites", action: "add_comment", to_id:nil, activity_id: @activity.id} do |f| %>
 					<%= f.text_area(:comment_content, placeholder:"评论内容")%>
 					<%= f.submit "发布评论" %>
 				<% end %> 
 			</div>
 		<% end %>
-
+		
+		<div id="comment_district">
+		  		<%= render partial: "comment_partial", :object => @total%>
+		</div>
+		
+		
+		
+		
+	<script src="/assets/activities/addComment.js"></script>
 	</body>
 </html>
 <% if @activity_owner_id == @activity.user_id %>

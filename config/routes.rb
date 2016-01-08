@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   get 'activites/all-events'
   
+  post 'activites/add_in_comment'
+  
   get 'launch' => 'activites#new'
   
 #  post 'activites/all-events'

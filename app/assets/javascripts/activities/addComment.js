@@ -1,4 +1,7 @@
 $(function(){
+    alert("test");
+    $(".each_comment .expand").hide();
+    console.log($(".each_comment expand"));
     
     $(".each_comment").hover(function(){
         $(this).children("a.expand").show();
