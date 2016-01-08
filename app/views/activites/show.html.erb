@@ -50,9 +50,8 @@
 	</body>
 </html>
 <% if @activity_owner_id == @activity.user_id %>
-	<%= button_to "Edit", {:controller => "activites", :action => "all_events", :edit => 1} %>
+	<%= button_to "Edit", {:controller => "activites", :action => "edit", :id => @activity.id},method: :get%>
 	<%= button_to "delete", {:controller => "activites", :action => "delete", :id => @activity.id}, :method => :delete, :confirm => 'Are you sure?' %>
 	<br>
 <% end %>
-
 <%= link_to "Back to activity list", {:controller => "activites", :action => "all_events"} %>

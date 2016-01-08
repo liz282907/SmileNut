@@ -31,6 +31,12 @@ class ActivitesController < ApplicationController
 		
 	end
 
+	def edit
+		puts params[:data]
+		puts "-----------------",params.inspect
+		@activity = Activity.find(params[:id])
+		
+	end
 	
 	def delete
 		id = params[:id]
@@ -65,8 +71,7 @@ class ActivitesController < ApplicationController
     @launch_activity = params[:activity]
     activity_param = {}
     activity_param[:name] = @launch_activity["name"]
-   # activity_param[:user_id] = User.where(:name => session[:user_name]).ids
-    activity_param[:user_id]=1
+    activity_param[:user_id] = (User.where(:name => session[:user_name])).ids[0]
     activity_param[:content] = @launch_activity["content"]
     activity_param[:tag] = @launch_activity["tag"]
     activity_param[:detail_addr] = @launch_activity["detail_addr"]
@@ -75,17 +80,31 @@ class ActivitesController < ApplicationController
     activity_param[:start_date] = @launch_activity["start_date"]
     activity_param[:end_date] = @launch_activity["end_date"]
     
+    activity_param[:recommend]=0
+    activity_param[:province]="北京市"
+    activity_param[:district]="怀柔区"
+    activity_param[:city]="北京市"
+    
     
     activity_added = Activity.new(activity_param)
     if activity_added.save
       logger.debug {"success"}
-      redirect_to nuts_path
+      user = User.find(activity_param[:user_id])
+      puts user
+      activity_ids = []
+      if user.Sponsor_Activity
+      	activity_ids = JSON.parse(user.Sponsor_Activity)
+      end
+      activity_ids.push(user.id)
+      info = user.update!(Sponsor_Activity: activity_ids.to_json)
+      redirect_to  "/activites/all-events"
     else
       puts "-------------------------"
       puts params["activity"]["start_date"]
-      puts params["activity"]["start_date"]
+      puts params["activity"]["end_date"]
+      puts "activity save info"
+      puts activity_added.inspect
       render plain: activity_added.errors.full_messages.inspect
-   #   render 'new'
       
     end
  #   render plain: activity_added.inspect

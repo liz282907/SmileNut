@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   
   get 'account/logout'
   
+  
+  
   delete 'activites/delete'
 
   # The priority is based upon order of creation: first created -> highest priority.
