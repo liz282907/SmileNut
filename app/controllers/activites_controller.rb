@@ -103,8 +103,11 @@ class ActivitesController < ApplicationController
 			from_id = User.find_by(Name: session[:user_name]).id
 			puts params[:to_id]
 			puts params[:activity_id]
-			CommentActivity.create(:activity_id => params[:activity_id], :content => params[:comment][:comment_content], :from_id => from_id, :to_id => params[:to_id])
+			CommentActivity.create(:activity_id => params[:activity_id], :content => params[:comment][:comment_content], :from_id => from_id, :to_id => params[:to_id])			
 			to_user = User.find(params[:to_id])
+			params[:from_name] = session[:user_name]
+			params[:to_name] = to_user[:name]
+			puts "---------------------",params
 			if (not to_user.unreaded)
 				tmp_hash = {}
 				tmp_hash[params[:activity_id]]=[].push(from_id)
