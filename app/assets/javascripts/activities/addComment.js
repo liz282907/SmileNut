@@ -1,18 +1,16 @@
 $(function(){
-    alert("test");
     $(".each_comment .expand").hide();
-    console.log($(".each_comment expand"));
     
     $(".each_comment").hover(function(){
         $(this).children("a.expand").show();
     },function(){
         $(this).children("a.expand").hide();
     });
-    
-    $("#comments a.expand").on("click",function(){
+
+    $("#comment_district a.expand").on("click",function(){
         var commentlink = $(this);
         commentlink.siblings(".add").show();
-        return false;
+        // return false;
     });
     $(".each_comment .comment").on("click",function() {
         var post_data = {
@@ -28,9 +26,14 @@ $(function(){
             success: function(){
                 
                 
-                }
+                },
+            error: function(XMLHttpRequest, textStatus, errorThrown){
+                console.log(textStatus+errorThrown);
+            }
         });
         return false;
     });
+    
+    
 });
 

@@ -11,7 +11,7 @@
                 <%= comment_info["comment"]["content"] %>
             <%end %>
         </span>
-        <a class="expand" href="#">回复</a>
+        <a class="expand" href="javascript:void(0)">回复</a>
         <div class="add">
             <input ></input>
             <%= link_to "回复", {:controller=>"activites", :action=>"add_in_comment"},data:{test1: comment_info["comment"]["from_id"],cur_u:session[:user_name],ac_id:comment_info["comment"]["activity_id"]},:class=>"comment"%>
