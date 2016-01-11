@@ -10,29 +10,33 @@ class ActivitesController < ApplicationController
 		 
 		end
 		
+		
 		@activity_comments = CommentActivity.where(activity_id: id)
-		@from_to_array = []
 		@total = []
 		@activity_comments.each do|activity_comment|
 			tmp_dic = {}
 			tmp_dic["from_name"] = User.find(activity_comment.from_id).Name
-			tmp_dic["to_name"] = User.find(activity_comment.to_id).Name
+			if !activity_comment.to_id
+				tmp_dic["to_name"]= ""
+			else
+				tmp_dic["to_name"] = User.find(activity_comment.to_id).Name
+			end
 			tmp_dic["comment"] = activity_comment
 			@total.push(tmp_dic)
-	"""
+		end
+"""		
+		@activity_comments = CommentActivity.where(activity_id: id)
+		@from_to_array = []
+		@activity_comments.each do|activity_comment|
+		
 			tmp_array = []
 			tmp_array.push(User.find(activity_comment.from_id).Name)
-			tmp_array.push(User.find(activity_comment.to_id).Name)
+		    tmp_array.push("")
+		    # tmp_array.push(User.find(activity_comment.to_id).Name)
 			tmp_array.push(activity_comment)
-			
-			activity_comment[:from_name] = User.find(activity_comment.from_id).Name
-			activity_comment[:to_name] = User.find(activity_comment.to_id).Name
 			@from_to_array.push(tmp_array)
-	"""
 		end
-		
-			
-
+"""
 
 	end
 
@@ -109,12 +113,25 @@ class ActivitesController < ApplicationController
 	end
 
 	def add_in_comment
+		puts "-^^^^^^^^^^^^^^^^^^^^^^^^^",params
 		to = params[:comment_to_id]
 		content = params[:content]
 		from = params[:comment_from_id]
 		activity = params[:activity_id]
-		CommentActivity.create(:activity_id =>activity, :content => content, :from_id =>from, :to_id => to)
+		com = CommentActivity.create(:activity_id =>activity, :content => content, :from_id =>from, :to_id => to)
 		
+		# if com
+		# 	puts "---------------------good"
+		# 	# render :text => "------------------in controller"
+		# else 
+		# 	puts "-----------------------wrong"
+		# 	puts com.errors.full_messages
+		# end
+		
+		 respond_to do |format|
+	     	format.html { render json: true }
+	         
+     	 end
 		
 	end
 	
@@ -125,10 +142,10 @@ class ActivitesController < ApplicationController
 			puts params[:to_id]
 			puts params[:activity_id]
 			CommentActivity.create(:activity_id => params[:activity_id], :content => params[:comment][:comment_content], :from_id => from_id, :to_id => params[:to_id])			
-			to_user = User.find(params[:to_id])
+			# to_user = User.find(params[:to_id])
 			params[:from_name] = session[:user_name]
-			params[:to_name] = to_user["Name"]
-			
+			# params[:to_name] = to_user["Name"]
+			params[:to_name] = ""
 			puts "---------------------",params
 			if (not to_user.unreaded)
 				tmp_hash = {}

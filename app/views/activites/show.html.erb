@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>果壳活动</title>
-		<link href="assets/activites/show.scss" rel="stylesheet" type="text/css"/>
+		<link href="/assets/activities/show.scss" rel="stylesheet" type="text/css"/>
 		<script type="text/javascript" src="/assets/account/jquery.js"></script>
 	</head>
 	<body>
@@ -42,6 +42,81 @@
 		
 		</div>
 		
+
+		
+		<% if (session[:user_name]) %>
+			<div>添加评论
+				<%= form_for :comment, url: {controller: "activites", action: "add_comment", to_id: @activity.user_id, activity_id: @activity.id} do |f| %>
+					<%= f.text_area(:comment_content, placeholder:"评论内容")%>
+					<%= f.submit "发布评论" %>
+				<% end %> 
+			</div>
+		<% end %>
+		
+		<div id="comment_district">
+		  		<%= render partial: "comment_partial", :object => @total%>
+		</div>
+		
+		
+		<% if @activity_owner_id == @activity.user_id %>
+			<%= button_to "Edit", {:controller => "activites", :action => "edit", :id => @activity.id},method: :get%>
+			<%= button_to "delete", {:controller => "activites", :action => "delete", :id => @activity.id}, :method => :delete, data: { confirm: "Are you sure?"} %>
+			<br>
+		<% end %>
+		<%= link_to "Back to activity list", {:controller => "activites", :action => "all_events"} %>
+		
+		
+	<script src="/assets/activities/addComment.js"></script>
+	</body>
+</html>
+
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>果壳活动</title>
+		<link href="/assets/activities/show.scss" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" src="/assets/account/jquery.js"></script>
+	</head>
+	<body>
+		<%= render "./header" %>
+		<h2><%=@activity.name%></h2>
+		<p>Find me in app/views/activites/show.html.erb</p>
+		<div>
+			<ul class="list-group">details
+				<li class="list-group-item">活动名
+					<%=@activity.name%>
+				</li>
+				<li class="list-group-item">活动内容
+					<%=@activity.content%>
+				</li>
+				<li class="list-group-item">活动地点
+					<%@address = ""%>
+	  				<%if(@activity.province!= "北京市" or "上海市" or "重庆市" or "天津市")%>
+	  					<%@address = @activity.province%>
+	  				<%end%>
+	  				<%@address = @address + @activity.city + @activity.district + @activity.detail_addr%>
+	  				<%=@address%>
+				</li>
+				<li class="list-group-item">开始时间
+					<%=@activity.start_date%>
+				</li>
+				<li class="list-group-item">结束时间
+					<%=@activity.end_date%>
+				</li>
+				<li class="list-group-item">发起人
+					<%=@activity.user_id%>
+				</li>
+				<li class="list-group-item"> <%= button_to "#{@activity.recommend}", {:controller => "activites" , :action => "add" , acid: @activity.id , type: "recommend"} , {method: :post} %></li>
+				<li class="list-group-item"> <%=button_to "#{@activity.want_join}", {:controller => "activites" , :action => "add" , acid: @activity.id , type: "want_join"} , {method: :post}%></li>
+	
+			</ul>
+		
+		</div>
+		
+
+		
 		<% if (session[:user_name]) %>
 			<div>添加评论
 				<%= form_for :comment, url: {controller: "activites", action: "add_comment", to_id:nil, activity_id: @activity.id} do |f| %>
@@ -56,14 +131,16 @@
 		</div>
 		
 		
+		<% if @activity_owner_id == @activity.user_id %>
+			<%= button_to "Edit", {:controller => "activites", :action => "edit", :id => @activity.id},method: :get%>
+			<%= button_to "delete", {:controller => "activites", :action => "delete", :id => @activity.id}, :method => :delete, data: { confirm: "Are you sure?"} %>
+			<br>
+		<% end %>
+		<%= link_to "Back to activity list", {:controller => "activites", :action => "all_events"} %>
 		
 		
 	<script src="/assets/activities/addComment.js"></script>
 	</body>
 </html>
-<% if @activity_owner_id == @activity.user_id %>
-	<%= button_to "Edit", {:controller => "activites", :action => "edit", :id => @activity.id},method: :get%>
-	<%= button_to "delete", {:controller => "activites", :action => "delete", :id => @activity.id}, :method => :delete, data: { confirm: "Are you sure?"} %>
-	<br>
-<% end %>
-<%= link_to "Back to activity list", {:controller => "activites", :action => "all_events"} %>
+
+
