@@ -116,20 +116,22 @@ class ActivitesController < ApplicationController
 		puts "-^^^^^^^^^^^^^^^^^^^^^^^^^",params
 		to = params[:comment_to_id]
 		content = params[:content]
-		from = params[:comment_from_id]
+		from = params[:comment_from_name]
+		from_id = (User.where(Name: params[:comment_from_name])).ids[0]
+		puts "-----------------",(User.where(Name: params[:comment_from_name])).ids[0]
 		activity = params[:activity_id]
-		com = CommentActivity.create(:activity_id =>activity, :content => content, :from_id =>from, :to_id => to)
+		com = CommentActivity.create(:activity_id =>activity, :content => content, :from_id =>from_id, :to_id => to)
 		
-		# if com
-		# 	puts "---------------------good"
-		# 	# render :text => "------------------in controller"
-		# else 
-		# 	puts "-----------------------wrong"
-		# 	puts com.errors.full_messages
-		# end
+		if com
+			puts "---------------------good"
+			# render :text => "------------------in controller"
+		else 
+			puts "-----------------------wrong"
+			puts com.errors.full_messages
+		end
 		
 		 respond_to do |format|
-	     	format.html { render json: true }
+	     	format.json {render info:"good"}
 	         
      	 end
 		

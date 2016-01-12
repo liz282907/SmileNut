@@ -25,6 +25,7 @@ $(function(){
          $.ajax({
             type:"POST",
             url:$("#comment_district a.comment").attr("href"),
+            dataType:"JSON",
             data: post_data,
             complete: function(){
                 console.log("----------------complete");
