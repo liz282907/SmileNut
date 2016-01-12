@@ -2,28 +2,54 @@ require 'json'
 
 class ActivitesController < ApplicationController
 
+	def getTotal(id)
+		@activity = Activity.find(id)
+		@activity_owner_name = User.find_by(@activity.user_id).Name
+
+		@activity_comments = CommentActivity.where(activity_id: id)
+		total = []
+		@activity_comments.each do|activity_comment|
+			tmp_dic = {}
+			tmp_dic["from_name"] = User.find(activity_comment.from_id).Name
+			to_name = User.find(activity_comment.to_id).Name
+			if to_name== @activity_owner_name
+				tmp_dic["to_name"]= ""
+			else
+				tmp_dic["to_name"] = to_name
+			end
+			tmp_dic["comment"] = activity_comment
+			total.push(tmp_dic)
+		end
+		return total
+		
+	end 
+
+
 	def show
 		id = params[:id]
 		@activity = Activity.find(id)
-		if (session[:user_name])
-			@activity_owner_id = User.find_by(Name: session[:user_name]).id
+		@activity_owner_name = User.find_by(@activity.user_id).Name
+
+		# if (session[:user_name])
+		# 	@activity_owner_id = User.find_by(Name: session[:user_name]).id
 		 
-		end
-		
+		# end
 		
 		@activity_comments = CommentActivity.where(activity_id: id)
 		@total = []
 		@activity_comments.each do|activity_comment|
 			tmp_dic = {}
 			tmp_dic["from_name"] = User.find(activity_comment.from_id).Name
-			if !activity_comment.to_id
+			to_name = User.find(activity_comment.to_id).Name
+			if to_name== @activity_owner_name
 				tmp_dic["to_name"]= ""
 			else
-				tmp_dic["to_name"] = User.find(activity_comment.to_id).Name
+				tmp_dic["to_name"] = to_name
 			end
 			tmp_dic["comment"] = activity_comment
 			@total.push(tmp_dic)
 		end
+	end
 """		
 		@activity_comments = CommentActivity.where(activity_id: id)
 		@from_to_array = []
@@ -38,7 +64,7 @@ class ActivitesController < ApplicationController
 		end
 """
 
-	end
+	
 
 
 
@@ -114,26 +140,46 @@ class ActivitesController < ApplicationController
 
 	def add_in_comment
 		puts "-^^^^^^^^^^^^^^^^^^^^^^^^^",params
-		to = params[:comment_to_id]
+		to_name = params[:comment_to_name]
+		to_id = (User.where(Name: to_name)).ids[0]
+		
 		content = params[:content]
-		from = params[:comment_from_name]
-		from_id = (User.where(Name: params[:comment_from_name])).ids[0]
-		puts "-----------------",(User.where(Name: params[:comment_from_name])).ids[0]
+		
+		from_name = params[:comment_from_name]
+		from_id = (User.where(Name: from_name)).ids[0]
 		activity = params[:activity_id]
-		com = CommentActivity.create(:activity_id =>activity, :content => content, :from_id =>from_id, :to_id => to)
+		
+		showTo = true
+		if User.find(activity).Name == to_name
+			showTo = false
+		end
+			
+		com = CommentActivity.create(:activity_id =>activity, :content => content, :from_id =>from_id, :to_id => to_id)
 		
 		if com
-			puts "---------------------good"
-			# render :text => "------------------in controller"
+			puts "---------------------good insert to CommentActivity table"
 		else 
-			puts "-----------------------wrong"
+			puts "-----------------------wrong insert to CommentActivity table"
 			puts com.errors.full_messages
 		end
 		
+		@total = getTotal(activity)
+		respond_to do |format|
+			format.html {render partial: "comment_partial",:object=>@total}
+		end
+		
+		"""
 		 respond_to do |format|
-	     	format.json {render info:"good"}
+		 	respond = {
+		 		respond_from_name: from_name,
+		 		respond_to_name: to_name,
+		 		respond_to_content: content,
+		 		respond_showTo: showTo
+		 	}.to_json
+	     	format.json {render :json => respond}
 	         
      	 end
+     	 """
 		
 	end
 	
