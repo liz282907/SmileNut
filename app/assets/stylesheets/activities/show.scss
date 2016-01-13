@@ -1,2 +1,6 @@
 .inline-text{color:grey;}
-.add{display:none;}
+.add,.each_comment .expand{display:none;}
+.highlight{
+    background-color :lightblue;
+    transition:background 1s;
+}

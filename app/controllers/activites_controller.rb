@@ -163,6 +163,17 @@ class ActivitesController < ApplicationController
 			puts com.errors.full_messages
 		end
 		
+		#更新未读回复字段
+		activity_owner = User.find(activity)
+		unread_json = JSON.parse(activity_owner.unreaded)
+		if !unread_json[activity]
+			unread_json[activity] = 1
+		else
+			unread_json[activity] += 1
+		end
+		activity_owner.update!(unreaded,unread_json)
+		
+		#刷新回复框
 		@total = getTotal(activity)
 		respond_to do |format|
 			format.html {render partial: "comment_partial",:object=>@total}

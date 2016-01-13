@@ -16,10 +16,11 @@
         </span>
         <a class="expand" href="javascript:void(0)">回复</a>
         <div class="add">
-            <input ></input>
+            <input />
             <a href=<%= activite_add_in_comment_path(comment_info["comment"]["activity_id"])%> 
                     data-cur_u=<%= session[:user_name]%> 
                     data-ac_id=<%= comment_info["comment"]["activity_id"] %> class="comment">回复</a>
+            <a href="javascript:void(0)" class="cancel">取消</a>
             
             
         </div>

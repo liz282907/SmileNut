@@ -2,18 +2,29 @@ $(function(){
     
     console.log($("#comment_district a.comment").attr("href"));
     
-    $(".each_comment .expand").hide();
-    
+    // $(".each_comment .expand").hide();
+    $(document).on("mouseenter",".each_comment",function() {
+         $(this).children("a.expand").show();
+    });
+    $(document).on("mouseleave",".each_comment",function() {
+         $(this).children("a.expand").hide();
+    });
+    /*
     $(".each_comment").hover(function(){
         $(this).children("a.expand").show();
     },function(){
         $(this).children("a.expand").hide();
     });
-
+*/
     $(document).on("click","#comment_district a.expand",function() {
          var commentlink = $(this);
-        commentlink.hide()
+            commentlink.hide()
                     .siblings(".add").show();
+    });
+    
+    $(document).on("click","#comment_district a.cancel",function() {
+         var commentlink = $(this);
+            commentlink.siblings("input").val("").parent().hide();
     });
     
     $(document).on("click", "#add_comment .commentBtn", function() {
@@ -71,6 +82,7 @@ $(function(){
                 // $("#comment_district").html("<%= escape_javascript(render(partial:'comment_partial', :object => @total))%>")
                 //                     .append("<p>good!</p>");
                 $("#comment_district").html(data);
+                $("#comment_district .each_comment").last().toggleClass("highlight");
                 console.log("-=================done");
                 },
             error: function(XMLHttpRequest, textStatus, errorThrown){
