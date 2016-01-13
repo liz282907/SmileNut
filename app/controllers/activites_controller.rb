@@ -166,9 +166,13 @@ class ActivitesController < ApplicationController
 		#更新未读回复字段
 		activity_owner = User.find(to_id)
 		unread_json = {}
-		if (activity_owner.unreaded and unread_json.has_key?(activity))
+		if (activity_owner.unreaded )
 			unread_json = JSON.parse(activity_owner.unreaded)
-			unread_json[activity] += 1
+			if(unread_json.has_key?(activity))
+				unread_json[activity] += 1
+			else
+				unread_json[activity] = 1
+			end
 		else
 			unread_json[activity] = 1
 		end
