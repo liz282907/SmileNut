@@ -23,12 +23,12 @@ end
 
 #------------------------活动表（activities）数据添加----------------------
 #encoding: utf-8
-
+=begin
 t=Time.now
 #Activity.create({:name => "雁栖湖一日游", :user_id => 1, :content => "雁栖湖的风景很漂亮，很漂浪呀很漂亮～", :participant_id => "2,3,4", :tag => "旅行", :province => "北京市", :city => "北京市", :district => "怀柔区", :detail_addr => "怀北镇雁栖湖风景区", :start_date => "2016-01-04 08:00:00", :end_date => "2016-01-04 18:00:00", :recommend => 4, :want_join => 5, :admin_id => 1, :created_at=>t,:updated_at=>t})
 Activity.create({:name => "八旗与八旗子弟", :user_id => 4, :content=> "讲述了满清时期的八旗的社会地位以及社会影响", :participant_id => "2,3,4", :tag => "讲座", :province => "北京市", :city => "北京市", :district => "怀柔区", :detail_addr => "中国科学院大学雁栖湖校区教1-101", :start_date => "2016-01-06 19:00:00", :end_date => "2016-01-06 21:00:00", :recommend => 4, :want_join => 5, :admin_id =>3, :created_at=>t,:updated_at=>t})
 
-
+=end
 
 #------------------------活动评论表（comment_activities）数据添加----------------------
 #encoding: utf-8
@@ -50,3 +50,8 @@ puts ac2.errors.full_messages
 
 =end
 
+
+user = User.find(1)
+temp = {}
+temp[1]=0
+user.update!(unreaded: temp.to_json) 

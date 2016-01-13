@@ -171,8 +171,8 @@ class ActivitesController < ApplicationController
 		else
 			unread_json[activity] += 1
 		end
-		activity_owner.update!(unreaded,unread_json)
-		
+		activity_owner.update!(unreaded: unread_json)
+
 		#刷新回复框
 		@total = getTotal(activity)
 		respond_to do |format|
