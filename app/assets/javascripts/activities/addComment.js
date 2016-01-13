@@ -42,6 +42,7 @@ $(function(){
             data:   post_data,
             success: function(data){
                 $("#comment_district").html(data);
+                $("#comment_district .each_comment").last().toggleClass("highlight");
                 $("#add_comment .commentBtn").siblings("textarea").val("");
                 console.log("-=================done");
                 console.log(data.info+"---------------good ajax response");

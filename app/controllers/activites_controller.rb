@@ -150,7 +150,7 @@ class ActivitesController < ApplicationController
 		activity = params[:activity_id]
 		
 		showTo = true
-		if User.find(activity).Name == to_name
+		if User.find(to_id).Name == to_name
 			showTo = false
 		end
 			
@@ -164,14 +164,24 @@ class ActivitesController < ApplicationController
 		end
 		
 		#更新未读回复字段
-		activity_owner = User.find(activity)
-		unread_json = JSON.parse(activity_owner.unreaded)
-		if !unread_json[activity]
-			unread_json[activity] = 1
+		activity_owner = User.find(to_id)
+		unread_json = {}
+		
+		if (activity_owner.unreaded)
+			unread_json = JSON.parse(activity_owner.unreaded)
+			if(unread_json.has_key?(activity))
+				unread_json[activity] += 1
+			else
+				unread_json[activity] = 1
+			end
 		else
-			unread_json[activity] += 1
+			unread_json[activity] = 1
 		end
-		activity_owner.update!(unreaded: unread_json)
+		activity_owner.update!(unreaded: unread_json.to_json)
+		
+		
+
+		
 
 		#刷新回复框
 		@total = getTotal(activity)
