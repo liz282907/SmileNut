@@ -6,7 +6,7 @@
 	<script type="text/javascript" src="/assets/account/jquery.js"></script>
 	<script type="text/javascript" src="/assets/activities/datetimepicker.js"></script>
 	<script type="text/javascript" src="/assets/activities/bootstrap-datetimepicker.zh-CN.js"></script>
-	<script type="text/javascript" src="/assets/activities/validateInput.js"></script>
+	
 </head>
 <body>
 <div class = "container main-pad">
@@ -15,11 +15,11 @@
         </div>
     
             <div class = "col-md-8 col-md-offset-2">
-           <%= form_for :activity, url: {controller: "activites", action: "create"},html: {class:"form-horizontal"} do |f| %>
+           <%= form_for @activity, url: {controller: "activites", action: "update", id: @activity.id},html: {class:"form-horizontal"},data:{activity_info:@activity} do |f| %>
               <div class = "form-group  has-feedback">
                   <label for = "name" class="control-label col-sm-2">活动名称</label>
                   <div class="col-sm-10 form-space">
-                      <%= f.text_field(:name ,id:"name",placeholder:"不超过10个字",value:@activity.name,class:"form-control")%>
+                      <%= f.text_field(:name ,id:"name",placeholder:"不超过10个字",class:"form-control")%>
                       <span class="glyphicon  form-control-feedback"></span>
                   </div>
                   
@@ -29,7 +29,7 @@
               <div class = "form-group has-feedback">
                   <label for = "place" class="control-label col-sm-2">活动地址</label>
                   <div class="col-sm-10">
-                       <%= f.text_field(:detail_addr ,id:"place",value:@activity.detail_addr,class:"form-control")%>
+                       <%= f.text_field(:detail_addr ,id:"place",class:"form-control")%>
                        <span class="glyphicon  form-control-feedback"></span>
                   </div>
                </div>
@@ -39,13 +39,13 @@
                   <div class = "col-sm-10">
                       <div class = "col-sm-10 form-group">
                           <label for = "starttime" class="control-label text-left">开始时间</label>
-                          <input id="starttime" class="form-control" type="text" name=activity["start_date"]>
+                          <input id="starttime" class="" type="text" name=activity[start_date]>
                           <span class="glyphicon  form-control-feedback"></span>
                       </div>
                       
                        <div class = "col-sm-10 form-group">
                           <label for = "endtime" class="control-label text-left">结束时间</label>
-                            <input id="endtime" class="form-control" type="text" name=@activity.end_date>
+                            <input id="endtime" class="" type="text" name=activity[end_date]>
                           <span class="glyphicon  form-control-feedback"></span>
                       </div>
                     </div>
@@ -54,7 +54,7 @@
               
               
               <div class = "form-group">
-                  <label for = "picture" class="control-label col-sm-2">上传海报</label>
+                  <label for = "picture" class="control-label col-sm-2">海报</label>
                    <div class="col-sm-10">
                        
                   </div>
@@ -65,7 +65,7 @@
                <div class = "form-group has-feedback">
                   <label for = "want_join" class="control-label col-sm-2">活动人数</label>
                   <div class="col-sm-10">
-                       <%= f.number_field(:want_join ,id:"want_join",value:@activity.want_join,class:"form-control",min:1)%>
+                       <%= f.number_field(:want_join ,id:"want_join",class:"form-control",min:1)%>
                        <span class="glyphicon  form-control-feedback"></span>
                   </div>
                </div>
@@ -73,7 +73,7 @@
                 <div class = "form-group has-feedback">
                   <label for = "tag" class="control-label col-sm-2">添加标签</label>
                   <div class="col-sm-10">
-                       <%= f.text_field(:tag ,id:"tag",class:"form-control",value:@activity.tag)%>
+                       <%= f.text_field(:tag ,id:"tag",class:"form-control")%>
                        <span class="glyphicon  form-control-feedback"></span>
                   </div>
                </div>
@@ -82,7 +82,7 @@
                <div class = "form-group has-feedback">
                   <label for = "content" class="control-label col-sm-2">活动描述</label>
                   <div class="col-sm-10">
-                       <%= f.text_area(:content ,id:"content",class:"form-control",size:"20x10",value:@activity.content)%>
+                       <%= f.text_area(:content ,id:"content",class:"form-control",size:"20x10")%>
                        <span class="glyphicon  form-control-feedback"></span>
                   </div>
                </div>
@@ -102,5 +102,5 @@
             
 </div>
 
-
+<script type="text/javascript" src="/assets/activities/edit.js"></script>
 </body>

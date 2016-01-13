@@ -3,15 +3,8 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>果壳活动</title>
-		<link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet"></link>
-		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
-		<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-		<style type="text/css">
-			body
-			{
-				font-family : 微软雅黑;
-			}
-		</style>
+		<link href="/assets/activities/show.scss" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" src="/assets/account/jquery.js"></script>
 	</head>
 	<body>
 		<%= render "./header" %>
@@ -48,40 +41,33 @@
 			</ul>
 		
 		</div>
-			
-		<div>评论区
 		
-			<ul class="list-group-item">
-				<% count = 0%>
-		  		<% @activity_comments.each do |comment|%>
-		  			<% count = count + 1 %>
-					<li><%= count %>&nbsp&nbsp
-						<%= @from_to_array[count - 1][0] %> 回复 <%= @from_to_array[count - 1][1]%>
-						<br>
-						&nbsp&nbsp&nbsp&nbsp
-						<%= comment.content %>
-  					</li>
-	  			<% end %>
-			</ul>
+       <div id="add_comment">
+            <textarea rows="10" cols="20" placeholder="评论区域">
+                
+            </textarea>
+            <a href=<%= activite_add_in_comment_path(@activity.id)%> 
+                data-single_fromname=<%= session[:user_name] %> 
+                data-single_ac_id=<%= @activity.id %> class="commentBtn"
+                data-single_to_name=<%= @activity_owner_name %>>回复</a>
+       </div>
+
 		
-		
-		
+		<div id="comment_district">
+		  		<%= render partial: "comment_partial", :object => @total%>
 		</div>
 		
-		<% if (session[:user_name]) %>
-			<div>添加评论
-				<%= form_for :comment, url: {controller: "activites", action: "add_comment", to_id: @activity.user_id, activity_id: @activity.id} do |f| %>
-					<%= f.text_area(:comment_content, placeholder:"评论内容")%>
-					<%= f.submit "发布评论" %>
-				<% end %> 
-			</div>
+		
+		<% if @activity_owner_id == @activity.user_id %>
+			<%= button_to "Edit", {:controller => "activites", :action => "edit", :id => @activity.id},method: :get%>
+			<%= button_to "delete", {:controller => "activites", :action => "delete", :id => @activity.id}, :method => :delete, data: { confirm: "Are you sure?"} %>
+			<br>
 		<% end %>
-
+		<%= link_to "Back to activity list", {:controller => "activites", :action => "all_events"} %>
+		
+		
+	<script src="/assets/activities/addComment.js"></script>
 	</body>
 </html>
-<% if @activity_owner_id == @activity.user_id %>
-	<%= button_to "Edit", {:controller => "activites", :action => "edit", :id => @activity.id},method: :get%>
-	<%= button_to "delete", {:controller => "activites", :action => "delete", :id => @activity.id}, :method => :delete, data: { confirm: "Are you sure?"} %>
-	<br>
-<% end %>
-<%= link_to "Back to activity list", {:controller => "activites", :action => "all_events"} %>
+
+

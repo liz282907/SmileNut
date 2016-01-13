@@ -3,9 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>果壳活动</title>
-		<link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet"></link>
-		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
-		<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/assets/account/jquery.js"></script>
 		<style type="text/css">
 			#label_content{
 				position: relative;
@@ -47,7 +45,7 @@
 
 				<li class="list-group-item">
 					<div class="info">
-						<div font-size=10px> <%= activity.id%> &nbsp&nbsp <%= link_to "#{activity.name}" ,"#{activity.id}" %> </div>
+						<div font-size=10px> <%= activity.id%> &nbsp&nbsp <%= link_to "#{activity.name}" ,activite_path(activity.id) %> </div>
 						<ul class="list-group-item">
 		  					<li>
 		  						<%@address = ""%>

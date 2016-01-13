@@ -2,26 +2,69 @@ require 'json'
 
 class ActivitesController < ApplicationController
 
+	def getTotal(id)
+		@activity = Activity.find(id)
+		@activity_owner_name = User.find_by(@activity.user_id).Name
+
+		@activity_comments = CommentActivity.where(activity_id: id)
+		total = []
+		@activity_comments.each do|activity_comment|
+			tmp_dic = {}
+			tmp_dic["from_name"] = User.find(activity_comment.from_id).Name
+			to_name = User.find(activity_comment.to_id).Name
+			if to_name== @activity_owner_name
+				tmp_dic["to_name"]= ""
+			else
+				tmp_dic["to_name"] = to_name
+			end
+			tmp_dic["comment"] = activity_comment
+			total.push(tmp_dic)
+		end
+		return total
+		
+	end 
+
+
 	def show
 		id = params[:id]
 		@activity = Activity.find(id)
-		if (session[:user_name])
-			@activity_owner_id = User.find_by(Name: session[:user_name]).id
+		@activity_owner_name = User.find_by(@activity.user_id).Name
+
+		# if (session[:user_name])
+		# 	@activity_owner_id = User.find_by(Name: session[:user_name]).id
 		 
-		end
+		# end
 		
+		@activity_comments = CommentActivity.where(activity_id: id)
+		@total = []
+		@activity_comments.each do|activity_comment|
+			tmp_dic = {}
+			tmp_dic["from_name"] = User.find(activity_comment.from_id).Name
+			to_name = User.find(activity_comment.to_id).Name
+			if to_name== @activity_owner_name
+				tmp_dic["to_name"]= ""
+			else
+				tmp_dic["to_name"] = to_name
+			end
+			tmp_dic["comment"] = activity_comment
+			@total.push(tmp_dic)
+		end
+	end
+"""		
 		@activity_comments = CommentActivity.where(activity_id: id)
 		@from_to_array = []
 		@activity_comments.each do|activity_comment|
+		
 			tmp_array = []
 			tmp_array.push(User.find(activity_comment.from_id).Name)
-			tmp_array.push(User.find(activity_comment.to_id).Name)
+		    tmp_array.push("")
+		    # tmp_array.push(User.find(activity_comment.to_id).Name)
+			tmp_array.push(activity_comment)
 			@from_to_array.push(tmp_array)
 		end
-			
+"""
 
-
-	end
+	
 
 
 
@@ -70,6 +113,17 @@ class ActivitesController < ApplicationController
 		redirect_to activites_all_events_path
 	end	
 	
+	
+	def update
+		params.permit!
+		puts params[:activity]
+		id = params[:id].to_i
+		puts "----------id",id
+		update_activity = Activity.find(id)
+		update_activity.update_attributes(params[:activity])
+		redirect_to {controller:"activites",action:"show",id: id}
+		
+	end
 
 	#------其他def-------
 	def add
@@ -84,7 +138,61 @@ class ActivitesController < ApplicationController
 		redirect_to :back
 	end
 
-	
+	def add_in_comment
+		puts "-^^^^^^^^^^^^^^^^^^^^^^^^^",params
+		to_name = params[:comment_to_name]
+		to_id = (User.where(Name: to_name)).ids[0]
+		
+		content = params[:content]
+		
+		from_name = params[:comment_from_name]
+		from_id = (User.where(Name: from_name)).ids[0]
+		activity = params[:activity_id]
+		
+		showTo = true
+		if User.find(activity).Name == to_name
+			showTo = false
+		end
+			
+		com = CommentActivity.create(:activity_id =>activity, :content => content, :from_id =>from_id, :to_id => to_id)
+		
+		if com
+			puts "---------------------good insert to CommentActivity table"
+		else 
+			puts "-----------------------wrong insert to CommentActivity table"
+			puts com.errors.full_messages
+		end
+		
+		#更新未读回复字段
+		activity_owner = User.find(activity)
+		unread_json = JSON.parse(activity_owner.unreaded)
+		if !unread_json[activity]
+			unread_json[activity] = 1
+		else
+			unread_json[activity] += 1
+		end
+		activity_owner.update!(unreaded: unread_json)
+
+		#刷新回复框
+		@total = getTotal(activity)
+		respond_to do |format|
+			format.html {render partial: "comment_partial",:object=>@total}
+		end
+		
+		"""
+		 respond_to do |format|
+		 	respond = {
+		 		respond_from_name: from_name,
+		 		respond_to_name: to_name,
+		 		respond_to_content: content,
+		 		respond_showTo: showTo
+		 	}.to_json
+	     	format.json {render :json => respond}
+	         
+     	 end
+     	 """
+		
+	end
 	
 	def add_comment
 		if (session[:user_name])
@@ -92,8 +200,12 @@ class ActivitesController < ApplicationController
 			from_id = User.find_by(Name: session[:user_name]).id
 			puts params[:to_id]
 			puts params[:activity_id]
-			CommentActivity.create(:activity_id => params[:activity_id], :content => params[:comment][:comment_content], :from_id => from_id, :to_id => params[:to_id])
-			to_user = User.find(params[:to_id])
+			CommentActivity.create(:activity_id => params[:activity_id], :content => params[:comment][:comment_content], :from_id => from_id, :to_id => params[:to_id])			
+			# to_user = User.find(params[:to_id])
+			params[:from_name] = session[:user_name]
+			# params[:to_name] = to_user["Name"]
+			params[:to_name] = ""
+			puts "---------------------",params
 			if (not to_user.unreaded)
 				tmp_hash = {}
 				tmp_hash[params[:activity_id]]=[].push(from_id)

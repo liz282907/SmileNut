@@ -5,6 +5,12 @@ Rails.application.routes.draw do
 
   get 'activites/all-events'
   
+  # post 'activites/add_in_comment'
+  
+  resources :activites do
+   post :add_in_comment #-> url.com/activities/:activity_id/add_in_comment
+end
+  
   get 'launch' => 'activites#new'
   
 #  post 'activites/all-events'
@@ -41,7 +47,7 @@ Rails.application.routes.draw do
 
     root 'nuts#index'
     resources :nuts
-    resources :activites
+    # resources :activites
     resources :hole
     resources :account
     
