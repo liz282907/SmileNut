@@ -1,0 +1,27 @@
+body{
+    padding-top: 70px;
+    background-color:white;
+}
+
+#carousel-example-generic{
+    // padding-top:100px;
+}
+.poster-wrap{width:1140px;height:480px;overflow:hidden;}
+.poster{width:1140px;height:480px;display:table;margin:0 auto;background-size:cover;}
+
+#tags ul{
+    display:flex;
+    justify-content:center; 
+}
+
+// #tags{border-left:10px solid lightblue;}
+
+#tags li{flex:1;font-size:1.5em;margin-left:20px;}
+#activity_info{padding-top:30px;}
+#activity_info h4{text-align:center;}
+#activity_info .user-interaction{text-align:center;}
+#activity_info form{display:inline-block;}
+
+.center-in-line{display:table;margin:0 auto;}
+
+.disable_link{color:grey;cursor:not-allowed;background-color:grey;}

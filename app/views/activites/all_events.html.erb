@@ -3,92 +3,105 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>果壳活动</title>
-		<script type="text/javascript" src="/assets/account/jquery.js"></script>
-		<style type="text/css">
-			#label_content{
-				position: relative;
-				left: 60px;
-				top: 0px;
-			}
-			#aside{
-				position: absolute;
-				top: 350px;
-				left: 750px;
-				width: 250px
-			}
-			body
-			{
-				font-family : 微软雅黑;
-			}
-		</style>
+		<link href="/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+		<link href="/assets/activities/all_events.scss" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" src="/assets/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="/assets/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/assets/header.js"></script>
+		<script type="text/javascript" src="/assets/activities/all-events.js"></script>
 
 	</head>
 	<body>
 		<%= render "./header" %>
-		<h2>果壳活动</h2>
-		<p>Find me in app/views/activites/all-events.html.erb</p>
-		<div id="activity_info" style="position:static; width: 700px">
-			<div style="position: relative; left: 10px; top: 30px;width:50px">标签：</div>
-			<div id="label_content">
+		
+		
+		<div id="carousel-example-generic" class="carousel slide container" data-ride="carousel">
+			<!-- Indicators -->
+			<ol class="carousel-indicators">
+				<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+				<li data-target="#carousel-example-generic" data-slide-to="1"></li>
+				<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+			</ol>
 			
-				<ul class="nav nav-pills">
-					<li> <%= link_to "全部" , {:controller => "activites" , :action => "all_events" } %> </li>	
-					<li> <%= link_to "旅行" , {:controller => "activites" , :action => "all_events" , tag: "旅行"} %> </li>
-					<li> <%= link_to "讲座" , {:controller => "activites" , :action => "all_events" , tag: "讲座"} %> </li>
-				</ul>
-		
+			<!-- Wrapper for slides -->
+			<div class="carousel-inner poster-wrap" role="listbox">
+				<div class="item active">
+					  <img src="/assets/poster2.gif" alt="..." class="poster">
+					  <div class="carousel-caption">
+					  </div>
+				</div>
+				<div class="item">
+					  <img src="/assets/poster3.jpg" alt="..." class="poster">
+					  <div class="carousel-caption">
+					  </div>
+				</div>
+				<div class="item">
+					  <img src="/assets/poster5.jpg" alt="..." class="poster">
+					  <div class="carousel-caption">
+					  </div>
+				</div>
 			</div>
-			<br>
-
-			<ul class="list-group">
-				<%@activities.each do |activity|%>
-
-				<li class="list-group-item">
-					<div class="info">
-						<div font-size=10px> <%= activity.id%> &nbsp&nbsp <%= link_to "#{activity.name}" ,activite_path(activity.id) %> </div>
-						<ul class="list-group-item">
-		  					<li>
-		  						<%@address = ""%>
-		  						<%if(activity.province != "北京市" or "上海市" or "重庆市" or "天津市")%>
-		  							<%@address = activity.province%>
-		  						<%end%>
-		  						<%@address = @address + activity.city + activity.district + activity.detail_addr%>
-		  						<span class="hidden-xs">地点：<%=@address%></span>
-		  					</li>
-							<li>
-		  						<span class="hidden-xs">开始时间：<%=activity.start_date%></span>
-		  					</li>
-							<li>
-		  						<span class="hidden-xs">结束时间：<%=activity.end_date%></span>
-		  					</li>
-							<li>
-		  						<span class="hidden-xs">发起人：<%=activity.user_id%></span>
-		  					</li>
-						</ul>
-						<p class="counts">
-		    				<div><%= button_to "推荐数 #{activity.recommend}", {:controller => "activites" , :action => "add" , acid: activity.id , type: "recommend"} , {method: :post} %>
-						</div>
-					
-						<div><%=button_to "想参加数 #{activity.want_join}", {:controller => "activites" , :action => "add" , acid: activity.id , type: "want_join"} , {method: :post}%>
-						</div>
-						</p>
-					</div>
-				</li>
-				<br>
-
-				<%end%>
-			</ul>
+			
+			<!-- Controls -->
+			<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+				<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+				<span class="sr-only">Previous</span>
+			</a>
+			<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+				<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+				<span class="sr-only">Next</span>
+			</a>
 		</div>
 		
-		<%=link_to "发起活动" ,"/launch", class:"btn btn-info",data:session[:edit] %>
-
-
-		<div id="aside">
-			这是边栏
-			这是边栏这是边栏这是边栏这是边栏
+		
+		
+		
+		
+		
+		<div id="tags" class="container white-background">
+				<ul class="list-inline col-sm-6 col-sm-offset-3">
+					<li> <%= link_to "全部" , {:controller => "activites" , :action => "all_events"}, class:"label label-default" %> </li>	
+					<li> <%= link_to "旅行" , {:controller => "activites" , :action => "all_events" , tag: "旅行"},class:"label label-primary" %> </li>
+					<li> <%= link_to "讲座" , {:controller => "activites" , :action => "all_events" , tag: "讲座"},class:"label label-info" %> </li>
+				</ul>
+				<%=link_to "发起活动" ,"/launch", class:"btn"%>
+		</div>
+			
+		<div id="activity_info" class="container white-background">
+			<div class="row activity_cards">
+				<%= render partial: "activities_partial",:object =>@activities %>
+			</div>
+			<a name="anchor"></a>
+			<nav id="page-division" class="center-in-line">
+				<ul class="pagination pagination-lg">
+					<li id="previous">
+					  <a href="#anchor" aria-label="Previous">&laquo;
+					  </a>
+					</li>
+					<li><a href="javascript:void(0)" class="page">1</a></li>
+					<li><a href="javascript:void(0)" class="page">2</a></li>
+					<li><a href="javascript:void(0)" class="page">3</a></li>
+					<li><a href="javascript:void(0)" class="page">4</a></li>
+					<li><a href="javascript:void(0)" class="page">5</a></li>
+					<li id="next">
+					  <a href="#anchor" aria-label="Next">
+					    <span aria-hidden="true">&raquo;</span>
+					  </a>
+					</li>
+				</ul>
+		</nav>
+			
 		</div>
 		
-	
+		
+		
+		
+		
+		
+		
+		
+		
+		<%=link_to "发起活动" ,"/launch", class:"btn btn-info"%>
 
 	</body>
 </html>

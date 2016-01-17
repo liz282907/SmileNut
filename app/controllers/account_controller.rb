@@ -82,4 +82,21 @@ class AccountController < ApplicationController
       return true if User.find_by_Email(@register_account["email"])
       return false
   end
+  
+  def showUnreadMessage
+      all_unreaded_message = 0
+      if(session[:user_name])
+    			cur = User.find_by_Name(session[:user_name])
+    			if cur.unreaded
+        			cur_activities = JSON.parse(cur.unreaded)
+        			cur_activities.each do |key,value|
+        			  all_unreaded_message+=value
+        			end
+        	end
+    	end
+			respond_to do |format|
+			  format.json {render :json => {message_num: all_unreaded_message}}
+			end
+	end
+  
 end
