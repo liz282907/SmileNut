@@ -3,62 +3,90 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>果壳活动</title>
+		<link href="/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 		<link href="/assets/activities/show.scss" rel="stylesheet" type="text/css"/>
-		<link href="/assets/stylesheets/application.css" rel="stylesheet" type="text/css"/>
+		<!--<link href="/assets/application.css" rel="stylesheet" type="text/css"/>-->
 		<script type="text/javascript" src="/assets/jquery-1.11.3.min.js"></script>
-		<script type="text/javascript" src="/lib/assets/bootstrap.min.js"></script>
-		<script type="text/javascript" src="/assets/javascripts/header.js"></script>
+		<script type="text/javascript" src="/assets/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/assets/header.js"></script>
 	</head>
 	<body>
 		<%= render "./header" %>
-		<h2><%=@activity.name%></h2>
-		<p>Find me in app/views/activites/show.html.erb</p>
-		<div>
-			<ul class="list-group">details
-				<li class="list-group-item">活动名
-					<%=@activity.name%>
-				</li>
-				<li class="list-group-item">活动内容
-					<%=@activity.content%>
-				</li>
-				<li class="list-group-item">活动地点
-					<%@address = ""%>
-	  				<%if(@activity.province!= "北京市" or "上海市" or "重庆市" or "天津市")%>
-	  					<%@address = @activity.province%>
-	  				<%end%>
-	  				<%@address = @address + @activity.city + @activity.district + @activity.detail_addr%>
-	  				<%=@address%>
-				</li>
-				<li class="list-group-item">开始时间
-					<%=@activity.start_date%>
-				</li>
-				<li class="list-group-item">结束时间
-					<%=@activity.end_date%>
-				</li>
-				<li class="list-group-item">发起人
-					<%=@activity.user_id%>
-				</li>
-				<li class="list-group-item"> <%= button_to "#{@activity.recommend}", {:controller => "activites" , :action => "add" , acid: @activity.id , type: "recommend"} , {method: :post} %></li>
-				<li class="list-group-item"> <%=button_to "#{@activity.want_join}", {:controller => "activites" , :action => "add" , acid: @activity.id , type: "want_join"} , {method: :post}%></li>
-	
-			</ul>
+		<div class="container wrap">
+			<div id="activity-abstract-header">
+				<div class="activity-header-left">
+					<img src="" alt="活动海报" class="activity_poster"/>
+				</div>
+				<div class="activity-header-right">
+					<p class="activity-title"><%=@activity.name%></p>
+					<div class="line-info">
+						<span alt="活动时间" class="time-icon myicon"/></span>
+						<span><%=@activity.start_date%>~<%=@activity.end_date%></span>
+					</div>
+					<div class="activity-place line-info">
+						<span  class="place-icon myicon"/></span>
+	  					<span><%=  @activity.city%></span>
+					</div>
+					<div class="activity-recommend line-info">
+						<img src="/assets/recommend.png" class="myicon"/>
+						<span><strong><%= @activity.recommend%></strong>人推荐</span>
+					</div>
+					<div class="activity-recommend line-info">
+						<img src="/assets/join.png" class="myicon"/>
+						<span><strong><%= @activity.want_join%></strong>人想参加</span>
+					</div>
+					<div class="join-btn line-info">
+						<%= button_to "我想参加", {:controller => "activites" , :action => "add" , acid: @activity.id , type: "recommend"} , {method: :post,class: "btn btn-info"} %>
+					</div>
+				</div>
+			</div>
+			<div id="activity-main-body">
+				<div class="activity-main-left">
+					<div>
+						<h3>活动内容</h3>
+						<div>
+							<%=@activity.content%>
+						</div>
+						
+					</div>
+					<div >
+						<h3 class="column">活动标签</h3>
+						<%if @activity.tag %>
+						<span class="label label-default"><%= @activity.tag %></span>
+						<%end%>
+					</div>
+					<div class="clearfix">
+						<h3 class="column">有什么问题，向发起人咨询吧！</h3>
+						<div id="add_comment" >
+							<div class="control textarea">
+								<textarea  placeholder="评论区域"></textarea>
+							</div>
+							<div class="comment_btn">
+								<a href=<%= activite_add_in_comment_path(@activity.id)%> 
+				                data-single_fromname=<%= session[:user_name] %> 
+				                data-single_ac_id=<%= @activity.id %> 
+				                data-single_to_name=<%= @activity_owner_name %> class="commentBtn">回复</a>
+							</div>
+						  	
+						</div>
+						
+					</div>
+					<div >
+						<h3 class="column">全部讨论</h3>
+						<div id="comment_district">
+						  	<%= render partial: "comment_partial", :object => @total%>
+						</div>
+					</div>
+				</div>
+				<div class="activity-main-right">
+					
+				</div>
+			</div>
 		
 		</div>
-		
-       <div id="add_comment">
-            <textarea rows="10" cols="20" placeholder="评论区域">
-                
-            </textarea>
-            <a href=<%= activite_add_in_comment_path(@activity.id)%> 
-                data-single_fromname=<%= session[:user_name] %> 
-                data-single_ac_id=<%= @activity.id %> class="commentBtn"
-                data-single_to_name=<%= @activity_owner_name %>>回复</a>
-       </div>
 
 		
-		<div id="comment_district">
-		  		<%= render partial: "comment_partial", :object => @total%>
-		</div>
+		
 		
 		
 		<% if @activity_owner_id == @activity.user_id %>

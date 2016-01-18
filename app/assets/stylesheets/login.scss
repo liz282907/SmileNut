@@ -1,0 +1,42 @@
+.loginbody, body {
+  margin: 0;
+  position: relative; }
+  .loginbody .dataEye, body .dataEye {
+    min-height: 100%;
+    padding-top: 109px;
+    padding-bottom: 109px; }
+  .loginbody .login-content, body .login-content {
+    max-width: 440px;
+    margin: 0 auto; }
+    .loginbody .login-content .loginbox-title, body .login-content .loginbox-title {
+      text-align: center; }
+  .loginbody form, body form {
+    text-align: center; }
+    .loginbody form input, body form input {
+      height: 40px;
+      line-height: 40px;
+      margin-top: 7px;
+      padding: 6px 5px;
+      font-weight: 300;
+      font-size: 14px;
+      vertical-align: text-top;
+      margin-right: 2px;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 4px; }
+    .loginbody form .btnArea input#submit, body form .btnArea input#submit {
+      padding: 0;
+      font-weight: 500px;
+      background-color: #5D9EAD;
+      color: #fff; }
+  .loginbody .row.tips, body .row.tips {
+    margin-top: 10px; }
+  .loginbody .go-regist, body .go-regist {
+    text-align: center;
+    margin-top: 30px; }
+  .loginbody .inline-block, .loginbody .copyright, body .inline-block, body .copyright {
+    text-align: center; }
+  .loginbody #footer, body #footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%; }

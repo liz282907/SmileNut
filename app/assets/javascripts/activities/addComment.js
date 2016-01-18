@@ -18,20 +18,22 @@ $(function(){
 */
     $(document).on("click","#comment_district a.expand",function() {
          var commentlink = $(this);
-            commentlink.hide()
-                    .siblings(".add").show();
+            commentlink.closest(".each_comment")
+                        .find(".add").show();
+            // $$(".add").show();
+                    // .siblings(".add").show();
     });
     
     $(document).on("click","#comment_district a.cancel",function() {
          var commentlink = $(this);
-            commentlink.siblings("input").val("").parent().hide();
+            commentlink.closest(".add").find("textarea").val("").parent().hide();
     });
-    
+   
     $(document).on("click", "#add_comment .commentBtn", function() {
         var $this = $(this);
         var post_data = {
             comment_to_name:$this.attr("data-single_to_name"),
-            content:$this.siblings("textarea").val(),
+            content:$this.closest("#add_comment").find("textarea").val(),
             comment_from_name:$this.attr("data-single_fromname"),
             activity_id:$this.attr("data-single_ac_id")
         }
@@ -43,7 +45,8 @@ $(function(){
             success: function(data){
                 $("#comment_district").html(data);
                 $("#comment_district .each_comment").last().toggleClass("highlight");
-                $("#add_comment .commentBtn").siblings("textarea").val("");
+                // $("#add_comment .commentBtn").siblings("textarea").val("");
+                $("#add_comment textarea").val("");
                 console.log("-=================done");
                 console.log(data.info+"---------------good ajax response");
                 },
@@ -67,10 +70,11 @@ $(function(){
         // console.log("==================="+$(e.target).closest(".each_comment").find(".first_name").html());
         var post_data = {
             comment_to_name:    comment_to,
-            content:$(this).siblings("input").val(),
+            content: $(this).parent().siblings("textarea").val(),
             comment_from_name:$(this).attr("data-cur_u"),
             activity_id:$(this).attr("data-ac_id")
         }
+        console.log("-----------post-data"+post_data.content);
          $.ajax({
             type:"POST",
             url:$("#comment_district a.comment").attr("href"),
