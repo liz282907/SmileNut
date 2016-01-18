@@ -27,9 +27,28 @@ class ActivitesController < ApplicationController
 
 
 	def show
+		
+		puts "********************"
+		
 		id = params[:id]
 		@activity = Activity.find(id)
 		@activity_owner_name = User.find_by(@activity.user_id).Name
+
+		if(session[:user_name])
+			puts "&&&&&&&&& is session user"
+			
+			session_user = User.find_by(Name: session[:user_name])
+			unreaded_dict = JSON.parse(session_user.unreaded)
+			puts unreaded_dict
+			puts id
+			if (unreaded_dict.has_key?(id))
+				puts "&&&&&&&& has_key"
+				unreaded_dict.delete(id)
+			end
+			
+			session_user.update_attributes(:unreaded => unreaded_dict.to_json)
+		end
+
 
 		# if (session[:user_name])
 		# 	@activity_owner_id = User.find_by(Name: session[:user_name]).id
