@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>my_profile</title>
+		<link href="/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+		<link href="/assets/activities/show.scss" rel="stylesheet" type="text/css"/>
+		<!--<link href="/assets/application.css" rel="stylesheet" type="text/css"/>-->
+		<script type="text/javascript" src="/assets/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="/assets/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/assets/header.js"></script>
+	</head>
+	<body>
+		<%= render "./nuts/header" %>
+		<div class="container wrap">
+		    <h1>my profile</h1>
+			<div id="activity-abstract-header">
+                <ul class="nav nav-pills nav-stacked">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">基本信息</a></li>
+                    <li><a href="#">未读活动消息</a></li>
+
+                </ul>
+				<div class="activity-header-right">
+					<p class="activity-title">未读活动列表</p>
+					<div class="line-info">
+					    <% @unreaded_ac.each do |ac|%>
+					        
+                            <a class="list-group-item active"><%= link_to ac.name, activites_show_path(ac.id) %></a>
+						<% end %>
+					</div>
+				</div>	
+			</div>
+		
+		</div>
+
+	<!--script src="/assets/activities/addComment.js"></script-->
+	</body>
+</html>
+
+

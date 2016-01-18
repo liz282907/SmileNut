@@ -28,7 +28,7 @@
 									<span class="caret"></span>
 								</a>
 								<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-									<li ><a href="#" class="li_unread">未读回复</a></li>
+									<li ><%= link_to "未读回复", {:controller => "nuts" , :action => "user_profile", :name => session[:user_name] }%></li>
 									<li><a href="#">编辑个人信息</a></li>
 									<li class="divider" role="separator"></li>
 									<li><%= link_to "退出", account_logout_path %></li>

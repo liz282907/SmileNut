@@ -8,8 +8,7 @@
 
 =begin
 =======
-"""
->>>>>>> c
+
 admins = [{:name => 'daige', :password => 'daige'},
     {:name => 'chenlu', :password => 'chenlu'},
     {:name => 'yangmeifang', :password => 'yangmeifang'},
@@ -18,7 +17,7 @@ admins = [{:name => 'daige', :password => 'daige'},
 admins.each do |admin|
     Admin.create!(admin)
 end
-<<<<<<< HEAD
+
 =end
 
 #------------------------活动表（activities）数据添加----------------------

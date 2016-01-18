@@ -193,12 +193,8 @@ class ActivitesController < ApplicationController
 		#更新未读回复字段
 		activity_owner = User.find(to_id)
 		unread_json = {}
-<<<<<<< HEAD
-		if (activity_owner.unreaded )
-=======
 		
 		if (activity_owner.unreaded)
->>>>>>> c68230ed470203ea451e04b2b07a45a01d2fe296
 			unread_json = JSON.parse(activity_owner.unreaded)
 			if(unread_json.has_key?(activity))
 				unread_json[activity] += 1
@@ -209,13 +205,10 @@ class ActivitesController < ApplicationController
 			unread_json[activity] = 1
 		end
 		activity_owner.update!(unreaded: unread_json.to_json)
-<<<<<<< HEAD
-=======
 		
 		
 
 		
->>>>>>> c68230ed470203ea451e04b2b07a45a01d2fe296
 
 		#刷新回复框
 		@total = getTotal(activity)

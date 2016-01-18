@@ -34,6 +34,9 @@ end
   delete 'activites/delete'
 
   post 'activites/add_comment'
+  
+  get 'nuts/user_profile'
+  post 'nuts/user_profile'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
