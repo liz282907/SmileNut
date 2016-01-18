@@ -1,63 +1,54 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<style type="text/css">
-		body
-		{
-			font-family : 微软雅黑;
-		    	/*font-size : 1em;*/
-		    color : #000;
-		}
-		h1{
-		    	background-color : #8AC007;
-			font-size : 2em; 
-		    	color : black;
-		}
-		a:link, a:visited {
-			text-decoration : none;
-			color : #8AC007;
-			/*background-color: #D6D6D6;*/
-		}
-		div.relative {
-		    	position : relative;
-		    	width : 1180px;
-		    	height : 250px;
-		    	border : 5px solid #8AC007;
-		}
-
-		right{
-		    	float : right;
-		}
-	
-		font1{
-		    	font-size : 1.5em;
-		    	color : #8AC007;
-		}
-		</style>
-	</head>
-
-	<body>
-	<div class="relative">
-		<h1 color:#8AC007>  &nbsp; SmileNut &nbsp; 果壳同行</h1>
-		<br>
-			<%= image_tag "nuts.jpg", size: "140x130" %>
-		<font1> &nbsp;&nbsp;
-		   	<%= link_to "活动", activites_all_events_path %> &nbsp;&nbsp;
-		    	<%= link_to "树洞", hole_all_holes_path %>
-		</font1>
-
-		<right>
-			<%if (session[:user_name])%>
-				Hello , <%=session[:user_name]%>&nbsp;&nbsp;
-				<%= link_to "退出登录", account_logout_path %>
-			<%else%>
-				<%= link_to "登录", account_login_path %> &nbsp;&nbsp;
-				<%= link_to "注册", account_register_path %>
-
-			<%end%>
-			&nbsp;&nbsp;&nbsp;&nbsp;
-		</right>
+<nav class="nav-main navbar-default navbar-fixed-top navbar">
+	<div class="container">
+			<div class="navbar-header" id="logo">
+				<a class="navbar-brand" href="javascript:void(0)">果壳同行</a>
+				<!--<img src="http://i11.tietuku.com/a2069b846bc89aa8s.png" alt="果壳同行"/>-->
+			</div>
+			<div class="navbar-collapse collapse tab">
+				<section class="nav navbar-nav">
+					<ul class="nav navbar-nav nav-lis">
+						<li >
+							<a>首页</a>
+						</li>
+						<li>
+							<%= link_to "活动", activites_all_events_path,class:"tab"%>
+						</li>
+						<li>
+							<%= link_to "树洞", hole_all_holes_path,class:"tab" %>
+						</li>
+					</ul>
+				</section>
+				<section >
+					<% if (session[:user_name])%>
+						<ul class="nav navbar-nav navbar-right">
+							<li class="dropdown">
+								<a class="dropdown-toggle" role="button" id="cur_user" 
+									data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<%= session[:user_name]%>
+									<span class="caret"></span>
+								</a>
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+									<li ><a href="#" class="li_unread">未读回复</a></li>
+									<li><a href="#">编辑个人信息</a></li>
+									<li class="divider" role="separator"></li>
+									<li><%= link_to "退出", account_logout_path %></li>
+								</ul>
+							</li>
+						</ul>
+						
+					<% else %>
+						<ul class="nav navbar-nav navbar-right">
+							<li><%= link_to "登录", account_login_path  %></li>
+							<li><%= link_to "注册", account_register_path %></li>
+						</ul>
+					<% end %>
+				</section>
+			</div>
+		
 	</div>
-	</body>
-</html>
-
+</nav>
+		
+		
+		
+		
+		

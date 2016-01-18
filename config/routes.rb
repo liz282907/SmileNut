@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   get 'activites/all-events'
   
+  get 'account/showUnreadMessage'
+  
   # post 'activites/add_in_comment'
   
   resources :activites do

@@ -1,30 +1,42 @@
-<% @total.each do |comment_info|%>
-    <div class="each_comment">
-        <span class="inline-text">
+<%if @total%>
+    <% @total.each do |comment_info|%>
+        <div class="each_comment clearfix">
             <%if comment_info["to_name"]=="" %>
-                <span class="first_name"><%= comment_info["from_name"]%></span>
-                <span>:
-                    <%= comment_info["comment"]["content"] %>
-                </span>
-                
+                <div class="comment_from_person">
+                    <a class="first_name"><%= comment_info["from_name"]%></a>
+                </div>
             <%else %>
-                <span class="first_name"><%= comment_info["from_name"]%>回复<%= comment_info["to_name"]%>:</span>
-                <span>
-                    <%= comment_info["comment"]["content"] %>
-                </span>
-            <%end %>
-        </span>
-        <a class="expand" href="javascript:void(0)">回复</a>
-        <div class="add">
-            <input />
-            <a href=<%= activite_add_in_comment_path(comment_info["comment"]["activity_id"])%> 
-                    data-cur_u=<%= session[:user_name]%> 
-                    data-ac_id=<%= comment_info["comment"]["activity_id"] %> class="comment">回复</a>
-            <a href="javascript:void(0)" class="cancel">取消</a>
-            
+                <div class="comment_from_person">
+                    <a class="first_name"><%= comment_info["from_name"]%></a> 回复 <a><%= comment_info["to_name"]%></a>
+                </div>
+            <%end%>
+            <div class="comment_content clearfix">
+                <%= comment_info["comment"]["content"] %>
+            </div>
+            <div class="bottom-link">
+                <span></span>
+                <a class="expand" href="javascript:void(0)">回复</a>
+            </div>
+            <div class="add">
+                    <textarea class="textarea"></textarea>
+                    <div>
+                        <a href=<%= activite_add_in_comment_path(comment_info["comment"]["activity_id"])%> 
+                            data-cur_u=<%= session[:user_name]%> 
+                            data-ac_id=<%= comment_info["comment"]["activity_id"] %> class="comment commentBtn">确定</a>
+                        <a href="javascript:void(0)" class="cancel commentBtn">取消</a>
+                    </div>
+                    
+            </div>
             
         </div>
+    <% end %>
+<%else%>
+    <div class="text-center no-comment">
+        <span class="icon-warning">
+            
+        </span>
+        还木有人评论，赶快抢个沙发！
     </div>
-<% end %>
+<%end%>
 
 

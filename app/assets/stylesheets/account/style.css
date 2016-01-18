@@ -260,7 +260,7 @@ button.btn-img .icon,a.btn-img .icon{margin:0 0 -6px -3px;*position:absolute;*le
 
 a.btn-big1{height:35px;line-height:35px;font-size:15px;padding:0 20px;}
 
-.login-btn{display:block;background:url(/assets/account/bg.png) repeat-x left top;width:330px;text-align:center;height:35px;line-height:35px;color:white;font-size:16px;border-radius:3px;border:1px solid #215A8D;}
+/*.login-btn{display:block;background:url(/assets/account/bg.png) repeat-x left top;width:330px;text-align:center;height:35px;line-height:35px;color:white;font-size:16px;border-radius:3px;border:1px solid #215A8D;}*/
 
 
 a.btn-gray{background-position:left -270px;border-color:#575757;}
@@ -415,8 +415,8 @@ a.btn-red:hover{background-position:left -420px;}
 .widescreen .widget-box{padding:30px;background:white;margin:20px 30px 0 30px;border-radius:3px;border:1px solid #CCCCCC;}
 .widescreen .widget-box .widget-title{margin:-31px -31px 0 -31px;border-color:#CCCCCC;}
 .widescreen .widget-content{border:0;}
-.loginbody{background:#D6E4FF;}
-.dataEye{background:url(/assets/account/homebg.png) no-repeat center top;position:absolute;left:0;top:0;right:0;bottom:0;}
+/*.loginbody{background:#D6E4FF;}*/
+/*.dataEye{background:url(/assets/account/homebg.png) no-repeat center top;position:absolute;left:0;top:0;right:0;bottom:0;}*/
 
 
 
@@ -896,7 +896,8 @@ input.error{border:1px solid #C00;background:#FFD2D2;color:#666;}
 .ui-dialog .notecontent{text-align:left;padding:20px 35px;}
 /* dialog */
 
-/* login */
+
+/* login 
 .loginbox,.not-box{width:400px;margin:50px auto 100px auto;}
 .loginbox .logo-a,.not-box .logo-a{height:150px; text-align:center;}
 .loginbox .loginbox-title{background:#FFFFFF;height:70px;border-radius:3px 3px 0 0;}
@@ -920,6 +921,7 @@ a.link,.go-regist a,.loginbox label a{color:#006DA7; cursor:pointer; line-height
 .tipsResults a{color:#5277A4;}
 .loginbox .autosuggest{position:absolute;left:0;top:54px;z-index:1000;}
 .loginbox .autosuggest li{width:320px;padding:5px 5px;border-bottom:1px solid #CCCCCC;}
+*/
 
 /* regist */
 .registbox{margin-top:20px;}

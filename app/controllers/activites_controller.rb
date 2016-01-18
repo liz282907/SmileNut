@@ -2,6 +2,7 @@ require 'json'
 
 class ActivitesController < ApplicationController
 
+	
 	def getTotal(id)
 		@activity = Activity.find(id)
 		@activity_owner_name = User.find_by(@activity.user_id).Name
@@ -69,7 +70,8 @@ class ActivitesController < ApplicationController
 
 
 	def all_events
-
+		
+		
 		@activities = Activity.all()
 		@activities.each do |activity|
 			puts activity.start_date.strftime("%Y-%m-%d %H:%M")
@@ -77,6 +79,31 @@ class ActivitesController < ApplicationController
 		end
 		#@activities = Activity.all()
 		@candidate = []
+		
+		# 分页请求
+		if(params[:page])
+			activity_count = @activities.count
+			puts "---------------------activity_count",activity_count
+			request_page = params[:page].to_i
+			if activity_count >= request_page*9
+				@activities_in_one_page = Activity.find([(request_page-1)*9+1,request_page*9+1])
+				respond_to do |format|
+					format.html { render partial: "activities_partial",:object =>@activities_in_one_page}
+				end	
+			elsif activity_count> (request_page-1)*9
+				gap = activity_count-(request_page-1)*9
+				@activities_in_one_page = (Activity.all())[-1*gap]
+				respond_to do |format|
+					format.html { render partial: "activities_partial",:object =>@activities_in_one_page}
+				end	
+			else
+				respond_to do |format|
+					format.html { render partial: "activity_not_found"}
+				end	
+			end
+			
+		end
+		
 		if(params[:tag])
 			@activities.each do |activity|
 				@get_tag = params[:tag]
@@ -93,9 +120,9 @@ class ActivitesController < ApplicationController
 
 		end
 		
-		if (params[:edit] == 1)
-			session[:edit] = true
-		end
+		# if (params[:edit] == 1)
+		# 	session[:edit] = true
+		# end
 		
 	end
 
@@ -166,7 +193,12 @@ class ActivitesController < ApplicationController
 		#更新未读回复字段
 		activity_owner = User.find(to_id)
 		unread_json = {}
+<<<<<<< HEAD
 		if (activity_owner.unreaded )
+=======
+		
+		if (activity_owner.unreaded)
+>>>>>>> c68230ed470203ea451e04b2b07a45a01d2fe296
 			unread_json = JSON.parse(activity_owner.unreaded)
 			if(unread_json.has_key?(activity))
 				unread_json[activity] += 1
@@ -177,6 +209,13 @@ class ActivitesController < ApplicationController
 			unread_json[activity] = 1
 		end
 		activity_owner.update!(unreaded: unread_json.to_json)
+<<<<<<< HEAD
+=======
+		
+		
+
+		
+>>>>>>> c68230ed470203ea451e04b2b07a45a01d2fe296
 
 		#刷新回复框
 		@total = getTotal(activity)

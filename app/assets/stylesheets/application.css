@@ -13,3 +13,9 @@
  *= require_tree .
  *= require_self
  */
+@import "bootstrap";
+@import "bootstrap-sprockets";
+
+/**********header**********/
+/*.wrap{background-color:white;}*/
+/*.logo {display:table-cell;vertical-align:middle;}*/
