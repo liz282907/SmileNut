@@ -7,8 +7,8 @@ class CreateActivities < ActiveRecord::Migration
       t.text :participant_id
       t.text :tag
       t.string :place
-      t.time :start_date
-      t.time :end_date
+      t.datetime :start_date
+      t.datetime :end_date
       t.integer :recommend
       t.integer :want_join
       t.integer :admin_id
