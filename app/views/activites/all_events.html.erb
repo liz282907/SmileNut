@@ -28,16 +28,19 @@
 				<div class="item active">
 					  <img src="/assets/poster2.gif" alt="..." class="poster">
 					  <div class="carousel-caption">
+					  	<%= link_to @hot_activities[0].name , activite_path(@hot_activities[0].id) %>
 					  </div>
 				</div>
 				<div class="item">
 					  <img src="/assets/poster3.jpg" alt="..." class="poster">
 					  <div class="carousel-caption">
+					  	<%= link_to @hot_activities[1].name , activite_path(@hot_activities[1].id) %>
 					  </div>
 				</div>
 				<div class="item">
 					  <img src="/assets/poster5.jpg" alt="..." class="poster">
 					  <div class="carousel-caption">
+					  	<%= link_to @hot_activities[2].name , activite_path(@hot_activities[2].id) %>
 					  </div>
 				</div>
 			</div>
@@ -92,15 +95,7 @@
 		</nav>
 			
 		</div>
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		<%=link_to "发起活动" ,"/launch", class:"btn btn-info"%>
 
 	</body>
