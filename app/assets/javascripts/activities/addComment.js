@@ -3,10 +3,10 @@ $(function(){
     console.log($("#comment_district a.comment").attr("href"));
     
     // $(".each_comment .expand").hide();
-    $(document).on("mouseenter",".each_comment",function() {
+    $("body").on("mouseenter",".each_comment",function() {
          $(this).children("a.expand").show();
     });
-    $(document).on("mouseleave",".each_comment",function() {
+    $("body").on("mouseleave",".each_comment",function() {
          $(this).children("a.expand").hide();
     });
     /*
@@ -16,7 +16,7 @@ $(function(){
         $(this).children("a.expand").hide();
     });
 */
-    $(document).on("click","#comment_district a.expand",function() {
+    $("body").on("click","#comment_district a.expand",function() {
          var commentlink = $(this);
             commentlink.closest(".each_comment")
                         .find(".add").show();
@@ -24,12 +24,12 @@ $(function(){
                     // .siblings(".add").show();
     });
     
-    $(document).on("click","#comment_district a.cancel",function() {
+    $("body").on("click","#comment_district a.cancel",function() {
          var commentlink = $(this);
             commentlink.closest(".add").find("textarea").val("").parent().hide();
     });
    
-    $(document).on("click", "#add_comment .commentBtn", function() {
+    $("body").on("click", "#add_comment .commentBtn", function() {
         var $this = $(this);
         var post_data = {
             comment_to_name:$this.attr("data-single_to_name"),
@@ -62,7 +62,7 @@ $(function(){
     
     
     //每一条回复后面的点击操作
-    $(document).on("click", ".each_comment .comment", function(e) {
+    $("body").on("click", ".each_comment .comment", function(e) {
         
         
         var comment_to = ($(e.target).closest(".each_comment").find(".first_name").text().split("回复"))[0];

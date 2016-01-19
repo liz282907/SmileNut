@@ -48,10 +48,10 @@ puts "------",ac1.errors.full_messages
 puts ac2.errors.full_messages
 
 =end
-
-
+=begin
 user = User.find(2)
 temp = {}
 temp[1]=0
 user.update!(unreaded: temp.to_json) 
 puts temp.to_json
+=end
