@@ -4,10 +4,12 @@
 		  <img src="/assets/account/logo.png" alt="活动海报">
 		  <div class="caption">
 			  <h4><%= link_to "#{activity.name}" ,activite_path(activity.id) %></h3>
-			  <p>《老炮儿》是由管虎导演，冯小刚、张涵予、李易峰、吴亦凡等主演的动作电影。</p>
+			  <p class="text-center ac_content"><%=activity.content%></p>
 			  <div class="user-interaction">
-			  	<%= button_to "推荐数 #{activity.recommend}", {:controller => "activites" , :action => "add" , acid: activity.id , type: "recommend"} , {method: :post,class:"btn btn-default"}%>
-  				<%= button_to "想参加数 #{activity.want_join}", {:controller => "activites" , :action => "add" , acid: activity.id , type: "want_join"} , {method: :post,class:"btn btn-default"}%>
+			  		<%= link_to "推荐 #{activity.recommend}" , {:controller => "activites" , :action => "add"}, 
+			  			{method: :post,data: {acid: activity.id , type: "recommend",name: session[:user_name]},class:"ui-link"} %>
+			  		<%= link_to "想参加 #{activity.want_join}" , {:controller => "activites" , :action => "add"}, 
+			  		{method: :post,data: {acid: activity.id , type: "want_join",name: session[:user_name]},class:"ui-link"} %>
 			  </div>
 		  </div>
 		</div>

@@ -1,0 +1,30 @@
+<div id="user-info">
+    <div class="row item">
+        <span class="col-sm-3">姓名：</span>
+        <span><%= @user.Name %></span>
+    </div>
+    <div class="row item">
+        <span class="col-sm-3">性别：</span>
+        <% if @user.Sex%>
+            <span><%= @user.Sex %></span>
+        <% else%>
+            <span class="text-center">——</span>
+        <% end%>
+    </div>
+    <div class="row item">
+        <span class="col-sm-3">邮箱：</span>
+        <% if @user.Email%>
+            <span><%= @user.Email %></span>
+        <% else%>
+            <span class="text-center">——</span>
+        <% end%>
+    </div>
+    <div class="row item">
+        <span class="col-sm-3">电话：</span>
+        <% if @user.Telephone%>
+            <span><%= @user.Telephone %></span>
+        <% else%>
+            <span class="text-center">——</span>
+        <% end%>
+    </div>
+</div>

@@ -28,7 +28,7 @@ class ActivitesController < ApplicationController
 
 	def show
 		
-		puts "********************"
+		puts "********************",params
 		
 		id = params[:id]
 		@activity = Activity.find(id)
@@ -177,11 +177,21 @@ class ActivitesController < ApplicationController
 		@activity = Activity.find params[:acid]
 		if (params[:type] == "recommend")
 			@activity.update_attributes(:recommend => (@activity.recommend + 1))
+			respond_to do |format|
+				str = "推荐"+ (@activity.recommend).to_s
+				send_ac = {data: str}.to_json
+				format.json {render :json => send_ac}	
+			end
 		else
 			@activity.update_attributes(:want_join => (@activity.want_join + 1))
+			respond_to do |format|
+				str = "想参加"+ (@activity.want_join).to_s
+				send_ac = {data: str}.to_json
+				format.json {render :json => send_ac}
+			end
 		end
 		
-		redirect_to :back
+		# redirect_to :back
 	end
 
 	def add_in_comment
