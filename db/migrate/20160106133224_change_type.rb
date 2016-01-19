@@ -1,6 +1,7 @@
 class ChangeType < ActiveRecord::Migration
   def change
-	change_column :activities, :start_date, :datetime
-	change_column :activities, :end_date, :datetime  
+    add_column :activities,:start_time,:datetime
+    add_column :activities,:end_time,:datetime
+ 
   end
 end
