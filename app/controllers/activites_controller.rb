@@ -174,9 +174,17 @@ class ActivitesController < ApplicationController
 	
 		@activity = Activity.find params[:acid]
 		if (params[:type] == "recommend")
-			@activity.update_attributes(:recommend => (@activity.recommend + 1))
+			if(@activity.recommend)
+				@activity.update_attributes(:recommend => (@activity.recommend + 1))
+			else
+				@activity.update_attributes(:recommend => 1)
+			end
 		else
-			@activity.update_attributes(:want_join => (@activity.want_join + 1))
+			if(@activity.want_join)
+				@activity.update_attributes(:want_join => (@activity.want_join + 1))
+			else
+				@activity.update_attributes(:want_join => 1)
+			end
 		end
 		
 		redirect_to :back
