@@ -27,7 +27,7 @@
 									<span class="caret"></span>
 								</a>
 								<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-									<li><%= link_to "未读回复", {:controller => "nuts" , :action => "user_profile", :name => session[:user_name] },class:'unread' %></li>
+									<li><%= link_to "未读回复", {:controller => "nuts" , :action => "user_profile", :name => session[:user_name] },class:'li_unread' %></li>
 									<li ><%= link_to "编辑个人信息", {:controller => "nuts" , :action => "user_profile", :name => session[:user_name] },class:'info' %></li>
 									<% if current_user.Name == "admin" %>
                     					<li> <%= link_to "用户管理", users_path %></li>

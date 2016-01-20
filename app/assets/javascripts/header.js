@@ -1,5 +1,4 @@
 $(function(){
-    
     changeActiveNav();
     $.ajax({
         type:   "Get",

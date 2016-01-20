@@ -1,7 +1,12 @@
 <%@activities.each do |activity|%>
 	<div class="col-sm-6 col-md-3">
 		<div class="thumbnail">
-		  <img src="/assets/account/logo.png" alt="活动海报">
+			<%if activity.picture_path%>
+			<% path = Rails.public_path.join('/uploadImage',activity.picture_path)%>
+		  	<img src= <%= path%> alt="活动海报"/>
+		  	<%else%>
+		  	<img src="/assets/account/logo.png" alt="活动海报"/>
+		  	<%end%>
 		  <div class="caption">
 			  <h4><%= link_to "#{activity.name}" ,activite_path(activity.id) %></h3>
 			  <p class="text-center ac_content"><%=activity.content%></p>

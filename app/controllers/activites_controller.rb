@@ -300,7 +300,9 @@ class ActivitesController < ApplicationController
 		@launch_activity = params[:activity]
 		activity_param = {}
 		activity_param[:name] = @launch_activity["name"]
-		activity_param[:user_id] = (User.where(:Email => session[:user_name])).ids[0]     #modify here
+		activity_param[:user_id] = (User.where(:Name => session[:user_name])).ids[0]     #modify here
+		puts "---------------useremail",session[:user_name]
+		puts "---------------userid",activity_param[:user_id]
 		# activity_param[:user_id] = (User.where(:name => session[:user_name])).ids[0]      
 		activity_param[:content] = @launch_activity["content"]
 		activity_param[:tag] = @launch_activity["tag"]
@@ -315,10 +317,15 @@ class ActivitesController < ApplicationController
 		activity_param[:district]="怀柔区"
 		activity_param[:city]="北京市"
 	
-		# upload_image = @launch_activity["picture"]
-		# File.open(Rails.root.join("public","uploadImage",upload_image.original_filename),"wb") do |file|
-		# 	file.write(upload_image.read)	
+		upload_image = @launch_activity["picture"]
+		image_name = sanitize_filename(upload_image.original_filename)
+		# File.open(Rails.root.join("public","uploadImage",image_name),"wb") do |file|
+		#  	file.write(upload_image.read)	
 		# end
+		# activity_param[:picture_path] = image_name
+		
+		
+		puts "---------------before---",image_name
 		
 		activity_added = Activity.new(activity_param)
 		if activity_added.save
@@ -331,6 +338,20 @@ class ActivitesController < ApplicationController
 			end
 			activity_ids.push(user.id)
 			info = user.update_attributes(Sponsor_Activity: activity_ids.to_json)
+		#给每个活动的名称进行与id绑定	
+			create_id = activity_added.id
+			img_name = "img" + create_id.to_s+(image_name.match(/\.\w+/))[0]
+			activity_added.update_attributes(:picture_path=>img_name)
+			
+			File.open(Rails.root.join("public/uploadImage",img_name),"wb") do |file|
+				file.write(upload_image.read)
+				# new_name = Rails.root.join("public/uploadImage",img_name+File.extname(file))
+		 	# 	File.rename(file,new_name)	
+			end
+			
+			
+			puts "---------------before---",img_name
+			
 			redirect_to  "/activites/all-events"
 		else
 		  puts "-------------------------"
@@ -345,5 +366,14 @@ class ActivitesController < ApplicationController
 		
 	end
 	
+	private
+		def sanitize_filename(file_name)
+		  # get only the filename, not the whole path (from IE)
+		  just_filename = File.basename(file_name) 
+		  # replace all none alphanumeric, underscore or perioids
+		  # with underscore
+		  just_filename.sub(/[^\w\.\-]/,'_') 
+		end
+		
 
 end
