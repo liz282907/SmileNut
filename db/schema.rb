@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 20160119201928) do
     t.integer  "admin_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.time     "start_time"
+    t.time     "end_time"
     t.string   "province"
     t.string   "district"
     t.string   "detail_addr"

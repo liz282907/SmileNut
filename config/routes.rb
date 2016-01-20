@@ -32,7 +32,7 @@ end
   
   post 'activites/add'
   
-  get 'account/logout'
+  # get 'account/logout'
   
   
   
