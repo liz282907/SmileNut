@@ -337,7 +337,7 @@ class ActivitesController < ApplicationController
 			  activity_ids = JSON.parse(user.Sponsor_Activity)
 			end
 			activity_ids.push(user.id)
-			info = user.update!(Sponsor_Activity: activity_ids.to_json)
+			info = user.update_attributes(Sponsor_Activity: activity_ids.to_json)
 			redirect_to  "/activites/all-events"
 		else
 		  puts "-------------------------"
