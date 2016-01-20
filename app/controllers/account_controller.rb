@@ -67,6 +67,8 @@ class AccountController < ApplicationController
               user_param["Name"] = @register_account["contact"]
               user_param["Email"] = @register_account["email"]
               user_param["Password"] = @register_account["password"]
+              unreaded_init = {}
+              user_param["unreaded"] = unreaded_init.to_json
               user_current = User.create!(user_param)
               session[:user_name] = @register_account["contact"]
               session[:pass_word] = @register_account["password"]

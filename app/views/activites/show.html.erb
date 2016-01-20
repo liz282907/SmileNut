@@ -28,6 +28,10 @@
 	  					<span><%=  @activity.city%></span>
 					</div>
 					<div class="activity-recommend line-info">
+						<img src="/assets/join.png" class="myicon"/>
+						<span><strong><%= @activity_owner_name+" "%></strong>发起</span>
+					</div>
+					<div class="activity-recommend line-info">
 						<img src="/assets/recommend.png" class="myicon"/>
 						<span><strong><%= @activity.recommend%></strong>人推荐</span>
 					</div>
@@ -85,10 +89,6 @@
 		
 		</div>
 
-		
-		
-		
-		
 		<% if @activity_owner_id == @activity.user_id %>
 			<%= button_to "Edit", {:controller => "activites", :action => "edit", :id => @activity.id},method: :get%>
 			<%= button_to "delete", {:controller => "activites", :action => "delete", :id => @activity.id}, :method => :delete, data: { confirm: "Are you sure?"} %>

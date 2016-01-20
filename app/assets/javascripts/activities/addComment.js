@@ -3,7 +3,7 @@ $(function(){
     console.log($("#comment_district a.comment").attr("href"));
     
     // $(".each_comment .expand").hide();
-    $(document).on("mouseenter",".each_comment",function() {
+    $("body").on("mouseenter",".each_comment",function() {
          $(this).children("a.expand").show();
     });
     $("body").on("mouseleave",".each_comment",function() {

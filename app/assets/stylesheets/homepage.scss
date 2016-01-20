@@ -1,0 +1,141 @@
+/*
+ * Globals
+ */
+
+/* Links */
+a,
+a:focus,
+a:hover {
+  color: #fff;
+}
+
+/* Custom default button */
+.btn-default,
+.btn-default:hover,
+.btn-default:focus {
+  color: #333;
+  text-shadow: none; /* Prevent inheritence from `body` */
+  background-color: #fff;
+  border: 1px solid #fff;
+}
+
+
+/*
+ * Base structure
+ */
+
+html,
+body {
+  height: 100%;
+  background-color: #bcb;
+}
+
+/* Extra markup and styles for table-esque vertical and horizontal centering */
+.site-wrapper {
+  display: table;
+  width: 100%;
+  height: 100%; /* For at least Firefox */
+  min-height: 100%;
+  -webkit-box-shadow: inset 0 0 100px rgba(0,0,0,.5);
+          box-shadow: inset 0 0 100px rgba(0,0,0,.5);
+}
+.site-wrapper-inner {
+  display: table-cell;
+  vertical-align: top;
+}
+.cover-container {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* Padding for spacing */
+.inner {
+  padding: 10px;
+  text-align: center;
+}
+
+
+
+/*
+ * Cover
+ */
+
+.cover {
+  padding: 0px 20px;
+}
+.cover .btn-lg {
+  /*padding: 20px 40px;*/
+  font-weight: bold;
+  width: 100px;
+  background: #fff;
+  color: #000;
+  border-radius: 4px;  
+}
+
+.btn_center {
+  margin:0 auto;		/* 居中 这个是必须的，，其它的属性非必须 */
+	width:500px;		/* 给个宽度 顶到浏览器的两边就看不出居中效果了 */
+	text-align:center; 	/* 文字等内容居中 */
+	a{display: inline-block;
+	  padding: 5px 10px;
+	}
+	a.mid{
+	  margin: 0 30px;
+	}
+}
+
+.h1_font {
+  font-family:"微软雅黑","黑体","宋体";
+  font-size: 120px;
+  color: #fff;
+}
+
+.welcome_font {
+  font-family:"微软雅黑","黑体","宋体";
+
+  color: rgba(0,0,0,.6);
+}
+
+/*
+ * Footer
+ */
+
+.mastfoot {
+  color: #999; /* IE8 proofing */
+  color: rgba(255,255,255,.5);
+}
+
+
+/*
+ * Affix and center
+ */
+
+@media (min-width: 768px) {
+  /* Pull out the header and footer */
+  .masthead {
+    position: fixed;
+    top: 0;
+  }
+  .mastfoot {
+    position: fixed;
+    bottom: 0;
+  }
+  /* Start the vertical centering */
+  .site-wrapper-inner {
+    vertical-align: middle;
+  }
+  /* Handle the widths */
+  .masthead,
+  .mastfoot,
+  .cover-container {
+    width: 100%; /* Must be percentage or pixels for horizontal alignment */
+  }
+}
+
+@media (min-width: 992px) {
+  .masthead,
+  .mastfoot,
+  .cover-container {
+    width: 700px;
+  }
+}

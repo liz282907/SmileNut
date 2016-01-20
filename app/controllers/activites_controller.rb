@@ -31,18 +31,16 @@ class ActivitesController < ApplicationController
 		puts "********************",params
 		
 		id = params[:id]
+		
 		@activity = Activity.find(id)
-		@activity_owner_name = User.find_by(@activity.user_id).Name
-
+		@activity_owner_name = User.find(@activity.user_id).Name
 		if(session[:user_name])
-			puts "&&&&&&&&& is session user"
 			
 			session_user = User.find_by(Name: session[:user_name])
 			unreaded_dict = JSON.parse(session_user.unreaded)
 			puts unreaded_dict
 			puts id
 			if (unreaded_dict.has_key?(id))
-				puts "&&&&&&&& has_key"
 				unreaded_dict.delete(id)
 			end
 			
@@ -70,28 +68,41 @@ class ActivitesController < ApplicationController
 			@total.push(tmp_dic)
 		end
 	end
-"""		
-		@activity_comments = CommentActivity.where(activity_id: id)
-		@from_to_array = []
-		@activity_comments.each do|activity_comment|
-		
-			tmp_array = []
-			tmp_array.push(User.find(activity_comment.from_id).Name)
-		    tmp_array.push("")
-		    # tmp_array.push(User.find(activity_comment.to_id).Name)
-			tmp_array.push(activity_comment)
-			@from_to_array.push(tmp_array)
-		end
-"""
 
-	
 
+	def hot_ac(activities) #统计热门活动
+		hot_ac_array = []
+        activities.each do |activity|
+          if(activity.recommend)
+            recommend = activity.recommend
+          else
+            recommend = 0
+          end
+          if(activity.want_join)
+            want_join = activity.want_join
+          else
+            want_join = 0
+          end
+          temp_array = [activity.id , (recommend + want_join)]
+          hot_ac_array.append(temp_array)
+        end
+        hot_ac_array.sort!{|x , y| y[1] <=> x[1]}
+        hot_activities = []
+        for i in hot_ac_array
+            hot_activities.append(i[0])
+        end
+        #puts hot_activities
+        return hot_activities 
+    end
 
 
 	def all_events
 		
 		
 		@activities = Activity.all()
+		hot_ac_array = hot_ac(@activities)
+		puts hot_ac_array
+		@hot_activities = Activity.find(hot_ac_array)
 		@activities.each do |activity|
 			puts activity.start_date.strftime("%Y-%m-%d %H:%M")
 			puts activity.to_s
@@ -332,7 +343,7 @@ class ActivitesController < ApplicationController
 			  activity_ids = JSON.parse(user.Sponsor_Activity)
 			end
 			activity_ids.push(user.id)
-			info = user.update!(Sponsor_Activity: activity_ids.to_json)
+			info = user.update_attributes(Sponsor_Activity: activity_ids.to_json)
 			redirect_to  "/activites/all-events"
 		else
 		  puts "-------------------------"
