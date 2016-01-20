@@ -25,3 +25,24 @@ body{
 .center-in-line{display:table;margin:0 auto;}
 
 .disable_link{color:grey;cursor:not-allowed;background-color:grey;}
+
+
+.ac_content{
+    max-height: 20px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.user-interaction
+{
+    padding: 10px 20px;
+    text-align: center;
+    display: flex;
+    .ui-link
+    {
+        display: inline-block;
+        flex: 1;
+        background: url("/assets/join.png") no-repeat;
+        padding-left: 20px;
+    }
+}

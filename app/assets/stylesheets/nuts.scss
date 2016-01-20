@@ -1,0 +1,43 @@
+// Place all the styles related to the nuts controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+ul{-webkit-padding-start: 0;}
+.wrap{margin-top: 80px;}
+a{text-decoration: none;}
+.activity-title{font-family: "Microsoft Yahei";}
+#main-body
+{
+    min-height: 400px;
+    display:flex;
+    #left-list
+    {
+        .active{background-color : #F1F8F9;color:#1FC0CD ;}
+        width: 250px;
+        ul
+        {
+            list-style-type: none;
+            a{
+            display: block;
+            padding: 10px 40% 10px 20px;
+            font-family: "Microsoft Yahei";
+            font-size: 14px;
+            color: #aaa;
+            }
+        }
+    }
+    #right-body{
+        flex: 1;
+        margin-right: 200px;
+        background-color: #F1F8F9;
+        font-family: "Microsoft Yahei";
+        #user-info
+        {
+            .item{
+                padding: 10px 30px;
+                font-size: 12px;
+            }
+        }
+    }
+}

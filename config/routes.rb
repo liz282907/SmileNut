@@ -41,6 +41,7 @@ end
   post 'activites/add_comment'
   
   get 'nuts/user_profile'
+  get 'nuts/user_profile_tab'
   post 'nuts/user_profile'
   
   get 'login' => 'sessions#new' 

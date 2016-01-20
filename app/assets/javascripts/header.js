@@ -15,17 +15,24 @@ $(function(){
             
         },
         error:  function(data){
-            
         },
     })
     
     $(".tab li").eq(window.currentTab).siblings().removeClass("active")
                                     .end().addClass("active");
                                       
-    $(document).on("click",".dropdown-toggle",function(){
+    $("body").on("click",".dropdown-toggle",function(){
         $(this).dropdown('toggle');
     });
-    $(document).on("click","li",function() {
+    
+    $("body").on("click",".unread",function() {
+        sessionStorage.setItem("tab", "unread");
+    });
+    $("body").on("click",".info",function() {
+        sessionStorage.setItem("tab", "info");
+    });
+    
+    $("body").on("click","li",function() {
         window.currentTab = $(this).index();
     });
     

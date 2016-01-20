@@ -1,0 +1,12 @@
+<div>
+    <%if @total_unread!=[]%>
+		<ul class="list-group">
+		    <% @total_unread.each do |ac|%>
+	            <li><%= link_to ac["activity_name"], activite_path(ac["activity_id"]) %><span class="badge"><%= ac["num"]%></span></li>
+			<% end %>
+		</ul>
+	<%else%>
+		<p class="text-center">暂无未读回复</p>
+	<%end%>
+	    
+</div>
