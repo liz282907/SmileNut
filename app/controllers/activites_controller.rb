@@ -233,7 +233,7 @@ class ActivitesController < ApplicationController
 		#更新未读回复字段
 		activity_owner = User.find(to_id)
 		unread_json = {}
-		
+		puts "----------------owner------",activity_owner.to_s
 		if (activity_owner.unreaded)
 			unread_json = JSON.parse(activity_owner.unreaded)
 			if(unread_json.has_key?(activity))
@@ -244,7 +244,10 @@ class ActivitesController < ApplicationController
 		else
 			unread_json[activity] = 1
 		end
-		activity_owner.update!(unreaded: unread_json.to_json)
+		puts "-------------unread_json-----------",unread_json.to_json
+		a = activity_owner.update_attributes(unreaded: unread_json.to_json)
+		# if !a puts "-------full_messages-----",activity_owner.errors.full_messages
+		# end
 		
 		#刷新回复框
 		@total = getTotal(activity)
@@ -297,7 +300,8 @@ class ActivitesController < ApplicationController
 		@launch_activity = params[:activity]
 		activity_param = {}
 		activity_param[:name] = @launch_activity["name"]
-		activity_param[:user_id] = (User.where(:name => session[:user_name])).ids[0]
+		activity_param[:user_id] = (User.where(:Email => session[:user_name])).ids[0]     #modify here
+		# activity_param[:user_id] = (User.where(:name => session[:user_name])).ids[0]      
 		activity_param[:content] = @launch_activity["content"]
 		activity_param[:tag] = @launch_activity["tag"]
 		activity_param[:detail_addr] = @launch_activity["detail_addr"]
@@ -310,7 +314,11 @@ class ActivitesController < ApplicationController
 		activity_param[:province]="北京市"
 		activity_param[:district]="怀柔区"
 		activity_param[:city]="北京市"
-		
+	
+		# upload_image = @launch_activity["picture"]
+		# File.open(Rails.root.join("public","uploadImage",upload_image.original_filename),"wb") do |file|
+		# 	file.write(upload_image.read)	
+		# end
 		
 		activity_added = Activity.new(activity_param)
 		if activity_added.save
