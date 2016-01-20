@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'sessions/new'
+
+  get 'users/new'
+
   get 'account/login'
 
   get 'account/register' 
@@ -7,6 +11,7 @@ Rails.application.routes.draw do
   
   get 'account/showUnreadMessage'
   
+  get 'signup' => 'users#new'
   # post 'activites/add_in_comment'
   
   resources :activites do
@@ -37,6 +42,10 @@ end
   
   get 'nuts/user_profile'
   post 'nuts/user_profile'
+  
+  get 'login' => 'sessions#new' 
+  post 'login' => 'sessions#create' 
+  delete 'logout' => 'sessions#destroy'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -55,7 +64,7 @@ end
     # resources :activites
     resources :hole
     resources :account
-    
+    resources :users
     
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products

@@ -19,27 +19,30 @@
 					</ul>
 				</section>
 				<section >
-					<% if (session[:user_name])%>
+					<% if logged_in? %>
 						<ul class="nav navbar-nav navbar-right">
 							<li class="dropdown">
 								<a class="dropdown-toggle" role="button" id="cur_user" 
 									data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									<%= session[:user_name]%>
+									<%= current_user.Name %> 
 									<span class="caret"></span>
 								</a>
 								<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+									<% if current_user.Name == "admin" %>
+                    					<li> <%= link_to "用户管理", users_path %></li>
+                  					<% end %>
 									<li ><%= link_to "未读回复", {:controller => "nuts" , :action => "user_profile", :name => session[:user_name] }%></li>
-									<li><a href="#">编辑个人信息</a></li>
+									<li><%= link_to "个人信息", edit_user_path(current_user) %></li>
 									<li class="divider" role="separator"></li>
-									<li><%= link_to "退出", account_logout_path %></li>
+									<li> <%= link_to "退出", logout_path, method: "delete" %> </li> 
 								</ul>
 							</li>
 						</ul>
 						
 					<% else %>
 						<ul class="nav navbar-nav navbar-right">
-							<li><%= link_to "登录", account_login_path  %></li>
-							<li><%= link_to "注册", account_register_path %></li>
+							<li><%= link_to "登录", login_path  %></li>
+							<li><%= link_to "注册", signup_path %></li>
 						</ul>
 					<% end %>
 				</section>
