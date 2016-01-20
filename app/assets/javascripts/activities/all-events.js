@@ -32,8 +32,7 @@ $(function(){
         var send_type = $this.attr("data-type");
         
         console.log("----------------"+activity_id+"---"+send_type);
-        
-      
+
        
             var post_data = {
                 type: send_type,

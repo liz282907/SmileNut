@@ -183,7 +183,11 @@ class ActivitesController < ApplicationController
 				format.json {render :json => send_ac}	
 			end
 		else
-			@activity.update_attributes(:want_join => (@activity.want_join + 1))
+			if @activity.want_join
+				@activity.update_attributes(:want_join => (@activity.want_join + 1))
+			else 
+				@activity.update_attributes(:want_join => 1)
+			end
 			respond_to do |format|
 				str = "想参加"+ (@activity.want_join).to_s
 				send_ac = {data: str}.to_json
