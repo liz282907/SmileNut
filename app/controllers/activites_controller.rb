@@ -98,7 +98,6 @@ class ActivitesController < ApplicationController
 
 	def all_events
 		
-		
 		@activities = Activity.all()
 		hot_ac_array = hot_ac(@activities)
 		puts hot_ac_array
@@ -149,10 +148,7 @@ class ActivitesController < ApplicationController
 			@activities = Activity.find @candidate
 
 		end
-		
-		# if (params[:edit] == 1)
-		# 	session[:edit] = true
-		# end
+
 		
 	end
 
@@ -250,28 +246,11 @@ class ActivitesController < ApplicationController
 		end
 		activity_owner.update!(unreaded: unread_json.to_json)
 		
-		
-
-		
-
 		#刷新回复框
 		@total = getTotal(activity)
 		respond_to do |format|
 			format.html {render partial: "comment_partial",:object=>@total}
 		end
-		
-		"""
-		 respond_to do |format|
-		 	respond = {
-		 		respond_from_name: from_name,
-		 		respond_to_name: to_name,
-		 		respond_to_content: content,
-		 		respond_showTo: showTo
-		 	}.to_json
-	     	format.json {render :json => respond}
-	         
-     	 end
-     	 """
 		
 	end
 	
@@ -311,7 +290,7 @@ class ActivitesController < ApplicationController
 	end
 	
 	def new
-	@activity = Activity.new
+		@activity = Activity.new
 	end
 	
 	def create
