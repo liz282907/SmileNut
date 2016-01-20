@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160119201928) do
+ActiveRecord::Schema.define(version: 20160120035704) do
 
   create_table "activities", force: :cascade do |t|
     t.integer  "user_id"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20160119201928) do
     t.string   "province"
     t.string   "district"
     t.string   "detail_addr"
+    t.string   "picture_path"
   end
 
   create_table "admins", force: :cascade do |t|
